@@ -1,0 +1,1801 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>十三星の盤</title>
+<meta name="theme-color" content="#E3E6E1">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+</head>
+<body>
+<script id="jbstate" type="application/json">{"codes":[],"seats":{},"v":0}</script>
+<script id="jbapp">var __s = document.currentScript || document.getElementById("jbapp");
+window.__JB = {
+  self: (__s && __s.textContent) || "",
+  head: "<!doctype html>\n<html lang=\"ja\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>十三星の盤<\/title>\n<meta name=\"theme-color\" content=\"#E3E6E1\">\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap\">\n<\/head>\n<body>\n",
+  tail: "\n<\/body>\n<\/html>\n"
+};
+document.head.insertAdjacentHTML("beforeend", "<style>" + "\n:root{\n  --ground:#E3E6E1; --panel:#F2F4EF; --panel-2:#E9ECE5; --edge:#C4CABF;\n  --line:#4C574F; --text:#191E1A; --text-dim:#5C665C;\n  --accent:#B4832A; --accent-soft:rgba(180,131,42,.16);\n  --danger:#A34A38; --danger-soft:rgba(163,74,56,.14);\n  --capture:#6E4EA0; --capture-soft:rgba(110,78,160,.14);\n  --p1-fill:#0E1211; --p1-ring:#000000; --p1-mark:#F2F4EF;\n  --p2-fill:#55C0B9; --p2-ring:#1B6A64; --p2-mark:#093330;\n  --focus:#2F6E63;\n  --shadow:0 1px 2px rgba(25,30,26,.14), 0 8px 24px rgba(25,30,26,.07);\n}\n@media (prefers-color-scheme: dark){\n  :root:not([data-theme=\"light\"]){\n    --ground:#141917; --panel:#1E2624; --panel-2:#2C3633; --edge:#3B4642;\n    --line:#93A099; --text:#E7ECE7; --text-dim:#95A099;\n    --accent:#D9A93F; --accent-soft:rgba(217,169,63,.18);\n    --danger:#E08A72; --danger-soft:rgba(224,138,114,.16);\n    --capture:#B49CE8; --capture-soft:rgba(180,156,232,.16);\n    --p1-fill:#080C0A; --p1-ring:#C9D6CE; --p1-mark:#E9F0EA;\n    --p2-fill:#55C0B9; --p2-ring:#0E3B37; --p2-mark:#062825;\n    --focus:#6FBFAF;\n    --shadow:0 1px 2px rgba(0,0,0,.5), 0 10px 28px rgba(0,0,0,.35);\n  }\n}\n:root[data-theme=\"dark\"]{\n  --ground:#141917; --panel:#1E2624; --panel-2:#2C3633; --edge:#3B4642;\n  --line:#93A099; --text:#E7ECE7; --text-dim:#95A099;\n  --accent:#D9A93F; --accent-soft:rgba(217,169,63,.18);\n  --danger:#E08A72; --danger-soft:rgba(224,138,114,.16);\n  --capture:#B49CE8; --capture-soft:rgba(180,156,232,.16);\n  --p1-fill:#080C0A; --p1-ring:#C9D6CE; --p1-mark:#E9F0EA;\n  --p2-fill:#55C0B9; --p2-ring:#0E3B37; --p2-mark:#062825;\n  --focus:#6FBFAF;\n  --shadow:0 1px 2px rgba(0,0,0,.5), 0 10px 28px rgba(0,0,0,.35);\n}\n\n*{box-sizing:border-box}\nbody{\n  margin:0; background:var(--ground); color:var(--text);\n  font-family:\"Zen Kaku Gothic New\",\"Hiragino Kaku Gothic ProN\",system-ui,sans-serif;\n  line-height:1.7; -webkit-text-size-adjust:100%;\n}\n.wrap{max-width:1060px;margin:0 auto;padding:28px 18px 56px;display:flex;flex-direction:column;gap:22px}\nheader{display:flex;flex-direction:column;gap:4px}\nh1{\n  font-family:\"Shippori Mincho\",\"Yu Mincho\",serif;font-weight:700;\n  font-size:clamp(1.5rem,4.4vw,2.1rem);letter-spacing:.06em;margin:0;text-wrap:balance;\n}\n.sub{color:var(--text-dim);font-size:.86rem;margin:0}\n\n.stage{display:flex;flex-direction:column;gap:22px}\n@media (min-width:900px){\n  .stage{flex-direction:row;align-items:flex-start;gap:30px}\n  .boardcol{flex:1 1 auto;min-width:0}\n  .side{flex:0 0 330px}\n}\n\n.card{background:var(--panel);border:1px solid var(--edge);border-radius:4px;box-shadow:var(--shadow)}\n.board-card{padding:14px}\nsvg.board{display:block;width:100%;height:auto;touch-action:manipulation}\n\n.grid-line{stroke:var(--line);stroke-width:2.2;stroke-linecap:round;opacity:.6;pointer-events:none}\n.coord{pointer-events:none}\n.mark-line{pointer-events:none}\n.stone{pointer-events:none}\n.grid-line.inner{stroke-dasharray:9 7;opacity:.8}\n.board.foul-live .grid-line.inner{stroke:var(--danger);opacity:.95}\n.mark-line{stroke-width:6;stroke-linecap:round;fill:none;opacity:.75}\n.mark-line.win{stroke:var(--accent)}\n.mark-line.lose{stroke:var(--danger)}\n.mark-line.cap{stroke:var(--danger);opacity:.85;stroke-width:5}\n.xmark{fill:none;stroke:var(--capture);stroke-width:2;stroke-dasharray:3 5;opacity:.7;pointer-events:none}\n.xmark.on{stroke-dasharray:none;stroke-width:4;opacity:1}\n.count.danger{color:var(--capture);font-weight:600}\n.log li.cap{border-color:var(--capture);color:var(--capture)}\n.trail{stroke:var(--accent);stroke-width:3;stroke-dasharray:4 6;opacity:.75;pointer-events:none}\n.ray{stroke:var(--accent);stroke-width:3;opacity:.3;stroke-linecap:round;pointer-events:none}\n.ray.jump{stroke-dasharray:3 9;opacity:.5;stroke-width:3.5}\n.blocker{fill:none;stroke:var(--danger);stroke-width:3;opacity:.85;pointer-events:none}\n.coord{font-family:\"IBM Plex Mono\",monospace;font-size:22px;fill:var(--text-dim);letter-spacing:.04em}\n.spot{fill:none;stroke:var(--line);stroke-width:1.6;opacity:.45;transition:fill .12s ease,opacity .12s ease}\n.spot.clickable{cursor:pointer}\n.spot.clickable:hover{fill:var(--accent-soft);opacity:1}\n.spot:focus{outline:none}\n.spot:focus-visible{outline:none;stroke:var(--focus);stroke-width:4;opacity:1}\n.hint{fill:var(--line);opacity:.5;pointer-events:none}\n.target{fill:var(--accent);opacity:.5;pointer-events:none}\n.stone circle{stroke-width:3.2}\n.p1 circle{fill:var(--p1-fill);stroke:var(--p1-ring)}\n.p2 circle{fill:var(--p2-fill);stroke:var(--p2-ring)}\n.crown{fill:none;stroke-width:4}\n.p1 .crown{stroke:var(--p1-mark)}\n.p2 .crown{stroke:var(--p2-mark)}\n.stone.pick circle{stroke:var(--accent);stroke-width:5}\n.stone.prey circle{stroke:var(--accent);stroke-width:5}\n.stone.prey{animation:pulse 1.1s ease-in-out infinite}\n@keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}\n@media (prefers-reduced-motion: reduce){.stone.prey{animation:none}}\n.stone.movable{cursor:pointer}\n.last-ring{fill:none;stroke:var(--accent);stroke-width:3;pointer-events:none}\n.drop{animation:drop .22s cubic-bezier(.22,1.2,.4,1)}\n@keyframes drop{from{transform:scale(.4);opacity:.2}to{transform:scale(1);opacity:1}}\n@media (prefers-reduced-motion: reduce){.drop{animation:none}}\n\n.side{display:flex;flex-direction:column;gap:14px}\n.turn{padding:14px 16px;display:flex;align-items:center;gap:12px}\n.turn .swatch{width:26px;height:26px;border-radius:50%;flex:0 0 auto}\n.turn .swatch.s1{background:var(--p1-fill);border:2.5px solid var(--p1-ring)}\n.turn .swatch.s2{background:var(--p2-fill);border:2px solid var(--p2-ring)}\n.turn .who{font-weight:700;font-size:1.05rem;letter-spacing:.03em}\n.turn .note{color:var(--text-dim);font-size:.8rem;margin-top:-3px}\n.turn.win{border-color:var(--accent);background:var(--accent-soft)}\n.turn.win .who{color:var(--accent)}\n.turn.lose{border-color:var(--danger);background:var(--danger-soft)}\n.turn.lose .who{color:var(--danger)}\n.turn.cap{border-color:var(--capture);background:var(--capture-soft)}\n.turn.cap .who{color:var(--capture)}\n\n.alertbar{padding:10px 14px;font-size:.78rem;line-height:1.5;border-color:var(--capture);\n  background:var(--capture-soft);color:var(--capture);display:flex;flex-direction:column;gap:4px}\n.alertbar .alert-title{font-family:\"IBM Plex Mono\",monospace;font-size:.72rem;letter-spacing:.14em;font-weight:700}\n.alertbar.hot{border-color:var(--danger);background:var(--danger-soft);color:var(--danger)}\n.alertbar > div > div + div{margin-top:3px}\n.target.draw{fill:var(--capture);opacity:.85}\n.warnbar{padding:10px 14px;font-size:.79rem;color:var(--text-dim);line-height:1.55}\n.warnbar.live{border-color:var(--danger);background:var(--danger-soft);color:var(--danger)}\n\n.hands{display:flex;flex-direction:column;gap:10px;padding:14px 16px}\n.hand{display:flex;align-items:center;gap:10px}\n.hand .name{\n  font-family:\"IBM Plex Mono\",monospace;font-size:.78rem;letter-spacing:.14em;\n  color:var(--text-dim);min-width:52px;flex:0 0 auto;white-space:nowrap;\n}\n.pips{display:flex;gap:7px}\n.pip{width:22px;height:22px;border-radius:50%;transition:opacity .15s ease}\n.pip.a1{background:var(--p1-fill);border:2.5px solid var(--p1-ring)}\n.pip.a2{background:var(--p2-fill);border:2px solid var(--p2-ring)}\n.pip.used{opacity:.16}\n.pip.kingpip{box-shadow:inset 0 0 0 3px var(--panel), inset 0 0 0 6px currentColor}\n.pip.a1.kingpip{color:var(--p1-mark)}\n.pip.a2.kingpip{color:var(--p2-mark)}\n.hand.active .name{color:var(--accent)}\n.count{font-family:\"IBM Plex Mono\",monospace;font-variant-numeric:tabular-nums;font-size:.82rem;color:var(--text-dim);margin-left:auto}\n\n.setting{padding:14px 16px;display:flex;flex-direction:column;gap:9px}\n.eyebrow{\n  font-family:\"IBM Plex Mono\",monospace;font-size:.74rem;letter-spacing:.14em;\n  text-transform:uppercase;color:var(--text-dim);font-weight:600;margin:0;\n}\n.seg{display:flex;border:1px solid var(--edge);border-radius:3px;overflow:hidden}\n.seg button{border:none;border-radius:0;border-right:1px solid var(--edge);background:transparent;font-size:.84rem;padding:10px 8px}\n.seg button:last-child{border-right:none}\n.seg button[aria-pressed=\"true\"]{background:var(--accent-soft);color:var(--accent);font-weight:700}\n.setting .why{font-size:.78rem;color:var(--text-dim);margin:0}\n.netstate{font-size:.82rem;font-weight:700;margin:0}\n.netbox{display:flex;flex-wrap:wrap;align-items:center;gap:8px}\n.netlabel{font-size:.72rem;color:var(--text-dim);width:100%;\n  font-family:\"IBM Plex Mono\",monospace;letter-spacing:.1em}\n.netcode{flex:1;min-width:120px;max-width:100%;font-family:\"IBM Plex Mono\",monospace;font-size:1rem;font-weight:600;\n  letter-spacing:.06em;padding:9px 10px;background:var(--panel-2);border:1px solid var(--edge);\n  border-radius:3px;user-select:all;-webkit-user-select:all;overflow-x:auto;white-space:nowrap}\n.netbox button{flex:0 0 auto;width:70px;padding:9px 0}\n#srvRoom{flex:1;min-width:110px;font-size:.95rem;padding:9px 10px;background:var(--panel-2);\n  color:var(--text);border:1px solid var(--edge);border-radius:3px}\n#srvWant{flex:0 0 auto;font-size:.85rem;padding:9px 6px;background:var(--panel-2);\n  color:var(--text);border:1px solid var(--edge);border-radius:3px;font-family:inherit}\n#netInput{flex:1;min-width:120px;font-family:\"IBM Plex Mono\",monospace;font-size:1rem;\n  padding:9px 10px;background:var(--panel-2);color:var(--text);\n  border:1px solid var(--edge);border-radius:3px}\n#netInput:focus{outline:2px solid var(--focus);outline-offset:1px}\n.netmsg{font-size:.78rem;color:var(--capture);margin:0}\n.rt-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px;\n  border:1px solid var(--edge);border-radius:3px;overflow:hidden;background:var(--edge)}\n.rt-list li{display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--panel)}\n.rt-text{display:flex;flex-direction:column;min-width:0;flex:1}\n.rt-name{font-size:.88rem;font-weight:700;letter-spacing:.02em}\n.rt-why{font-size:.72rem;color:var(--text-dim);line-height:1.4}\n.rt-btn{flex:0 0 auto;width:64px;padding:6px 0;font-size:.78rem;border-radius:2px;\n  font-family:\"IBM Plex Mono\",monospace;letter-spacing:.06em}\n.rt-btn[aria-pressed=\"true\"]{background:var(--accent-soft);color:var(--accent);border-color:var(--accent);font-weight:700}\n.rt-btn[aria-pressed=\"false\"]{color:var(--text-dim);background:var(--panel-2)}\nbutton.wide{flex:none;width:100%}\n\n.controls{display:flex;gap:10px;padding:14px 16px}\n.controls.stacked{flex-direction:column}\n.controls .row{display:flex;gap:10px}\n.controls .row button{flex:1}\nbutton.primary{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:700}\n#kingBtn[aria-pressed=\"true\"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:700}\n.scoreboard{padding:12px 16px;display:flex;flex-direction:column;gap:8px}\n.sb-head{display:flex;align-items:baseline;justify-content:space-between}\n.sb-round{font-size:.76rem;color:var(--text-dim);font-family:\"IBM Plex Mono\",monospace}\n.sb-row{display:flex;align-items:center;gap:10px}\n.sb-name{font-size:.8rem;font-weight:700;min-width:34px}\n.sb-track{flex:1;height:10px;background:var(--panel-2);border-radius:5px;overflow:hidden}\n.sb-bar{display:block;height:100%;width:0;transition:width .3s ease;border-radius:5px}\n.sb-bar.b1{background:var(--p1-ring)}\n.sb-bar.b2{background:var(--p2-fill)}\n.sb-pt{font-family:\"IBM Plex Mono\",monospace;font-variant-numeric:tabular-nums;font-size:1rem;font-weight:600;min-width:24px;text-align:right}\nbutton{\n  flex:1;font-family:inherit;font-size:.9rem;font-weight:500;padding:11px 10px;\n  color:var(--text);background:var(--panel-2);border:1px solid var(--edge);border-radius:3px;\n  cursor:pointer;transition:background .12s ease,border-color .12s ease;\n}\nbutton:hover:not(:disabled){background:var(--accent-soft);border-color:var(--accent)}\nbutton:focus-visible{outline:2px solid var(--focus);outline-offset:2px}\nbutton:disabled{opacity:.4;cursor:default}\n\n.log{padding:14px 16px;display:flex;flex-direction:column;gap:8px}\n.log ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}\n.log li{\n  font-family:\"IBM Plex Mono\",monospace;font-variant-numeric:tabular-nums;font-size:.82rem;\n  padding:2px 8px;border:1px solid var(--edge);border-radius:2px;display:flex;align-items:center;gap:6px;\n}\n.log li .dot{width:9px;height:9px;border-radius:50%}\n.log li .dot.d1{background:var(--p1-fill);border:1px solid var(--p1-ring)}\n.log li .dot.d2{background:var(--p2-fill);border:1px solid var(--p2-ring)}\n.log .empty{color:var(--text-dim);font-size:.82rem;margin:0}\n\n.rules{padding:14px 16px}\n.rules summary{\n  cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;\n  font-family:\"IBM Plex Mono\",monospace;font-size:.74rem;letter-spacing:.14em;\n  text-transform:uppercase;color:var(--text-dim);font-weight:600;\n}\n.rules summary::-webkit-details-marker{display:none}\n.rules summary::after{content:\"＋\";margin-left:auto;font-size:.9rem}\n.rules[open] summary::after{content:\"−\"}\n.rules dl{margin:12px 0 0;display:flex;flex-direction:column;gap:11px}\n.rules dt{font-weight:700;font-size:.86rem;display:flex;align-items:baseline;gap:7px}\n.rules dt .no{font-family:\"IBM Plex Mono\",monospace;color:var(--accent);font-size:.78rem}\n.rules dt.bad .no{color:var(--danger)}\n.rules dd{margin:1px 0 0;font-size:.83rem;color:var(--text-dim)}\n.rules code{font-family:\"IBM Plex Mono\",monospace;font-size:.8em;color:var(--text)}\n.legend{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:.78rem;color:var(--text-dim)}\n.legend svg{flex:0 0 auto}\n\nfooter{color:var(--text-dim);font-size:.8rem;border-top:1px solid var(--edge);padding-top:14px}\n\n/* ===== 最初の画面 ===== */\n.gate{position:fixed;inset:0;z-index:60;background:var(--ground);\n  display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto}\nbody.gated{overflow:hidden}\n.gatecard{width:100%;max-width:420px;background:var(--panel);border:1px solid var(--edge);\n  border-radius:6px;box-shadow:var(--shadow);padding:26px 22px 22px;\n  display:flex;flex-direction:column;gap:17px}\n.geyebrow{margin:0;font-size:.68rem;letter-spacing:.28em;color:var(--text-dim)}\n.gtitle{font-family:\"Shippori Mincho\",\"Yu Mincho\",serif;font-weight:700;\n  font-size:1.85rem;letter-spacing:.11em;margin:-4px 0 0}\n.gsec{display:flex;flex-direction:column;gap:9px}\n.glabel{margin:0;font-weight:700;font-size:.95rem}\n.ghint{margin:0;font-size:.76rem;color:var(--text-dim);line-height:1.7}\n.grow{display:flex;gap:8px}\n.grow input{flex:1;min-width:0;font-size:1rem;padding:10px 11px;background:var(--panel-2);\n  color:var(--text);border:1px solid var(--edge);border-radius:3px;font-family:inherit}\n.grow input:focus{outline:2px solid var(--focus);outline-offset:1px}\n.grow button{flex:0 0 auto;width:100px}\n.grow3{display:flex;gap:8px}\n.grow3 button{flex:1;padding:11px 2px;font-size:.83rem}\n.gor{display:flex;align-items:center;gap:10px;color:var(--text-dim);font-size:.7rem;\n  letter-spacing:.2em}\n.gor::before,.gor::after{content:\"\";flex:1;height:1px;background:var(--edge)}\nbutton.ghost{background:transparent;border-color:transparent;color:var(--text-dim);\n  font-size:.78rem;padding:3px 0;align-self:flex-start;width:auto}\nbutton.ghost:hover:not(:disabled){background:transparent;border-color:transparent;color:var(--accent)}\n.gmsg{margin:0;font-size:.79rem;color:var(--danger);line-height:1.65}\n.gfoot{margin:0;font-size:.72rem;color:var(--text-dim);line-height:1.65}\n#roomWord{font-family:inherit;letter-spacing:.04em}\n.homebtn{align-self:flex-start;width:auto;font-size:.76rem;padding:5px 12px;margin-top:2px}\n" + "<" + "/style>");
+document.body.insertAdjacentHTML("beforeend", "\n<div class=\"gate\" id=\"gate\" style=\"display:none\">\n  <div class=\"gatecard\">\n    <p class=\"geyebrow\">二人対戦・13点先取<\/p>\n    <h1 class=\"gtitle\">十三星の盤<\/h1>\n\n    <div class=\"gsec\" id=\"gRoomSec\">\n      <p class=\"glabel\">友達と対戦する<\/p>\n      <p class=\"ghint\" id=\"gRoomHint\">ふたりで同じ合言葉を入れると、同じ卓に着きます。相手にはこのページのURLと合言葉を伝えてください。<\/p>\n      <div class=\"grow\">\n        <input type=\"text\" id=\"gWord\" autocomplete=\"off\" spellcheck=\"false\"\n               placeholder=\"合言葉\" maxlength=\"24\" aria-label=\"合言葉\">\n        <button type=\"button\" id=\"gJoin\" class=\"primary\">卓に着く<\/button>\n      <\/div>\n      <button type=\"button\" id=\"gMake\" class=\"ghost\">合言葉を作ってもらう<\/button>\n    <\/div>\n\n    <div class=\"gsec\" id=\"gArtSec\" style=\"display:none\">\n      <p class=\"glabel\">友達と対戦する<\/p>\n      <p class=\"ghint\">このページ自体がひとつの卓です。同じURLを開いた人と対戦できます。<\/p>\n      <button type=\"button\" id=\"gArt\" class=\"primary wide\">このページで対戦する<\/button>\n    <\/div>\n\n    <div class=\"gor\"><span>または<\/span><\/div>\n\n    <div class=\"gsec\">\n      <p class=\"glabel\">ひとりで指す<\/p>\n      <div class=\"grow3\">\n        <button type=\"button\" id=\"gCpu1\">やさしい<\/button>\n        <button type=\"button\" id=\"gCpu2\">強い<\/button>\n        <button type=\"button\" id=\"gCpu0\">1台でふたり<\/button>\n      <\/div>\n    <\/div>\n\n    <p class=\"gmsg\" id=\"gMsg\" style=\"display:none\"><\/p>\n    <p class=\"gfoot\">ルールは盤の下にすべて書いてあります。見出しの下の「最初に戻る」で、いつでもここへ戻れます。<\/p>\n  <\/div>\n<\/div>\n\n\n<div class=\"wrap\">\n  <header>\n    <h1>十三星の盤<\/h1>\n    <p class=\"sub\">二人対戦・13点先取。4つの持ち駒のうち1つが王です。役が成立すると得点が入り、攻守を交代して次のラウンドへ進みます。<\/p>\n    <button type=\"button\" id=\"homeBtn\" class=\"homebtn\">最初に戻る<\/button>\n  <\/header>\n\n  <div class=\"stage\">\n    <div class=\"boardcol\">\n      <div class=\"card board-card\">\n        <svg class=\"board\" id=\"board\" viewBox=\"0 0 580 580\" role=\"application\" aria-label=\"十三交点の盤\"><\/svg>\n      <\/div>\n    <\/div>\n\n    <div class=\"side\">\n      <div class=\"card scoreboard\">\n        <div class=\"sb-head\"><span class=\"eyebrow\">13点先取<\/span><span class=\"sb-round\" id=\"roundNo\"><\/span><\/div>\n        <div class=\"sb-row\"><span class=\"sb-name\">黒<\/span><span class=\"sb-track\"><span class=\"sb-bar b1\" id=\"bar1\"><\/span><\/span><span class=\"sb-pt\" id=\"score1\">0<\/span><\/div>\n        <div class=\"sb-row\"><span class=\"sb-name\">青<\/span><span class=\"sb-track\"><span class=\"sb-bar b2\" id=\"bar2\"><\/span><\/span><span class=\"sb-pt\" id=\"score2\">0<\/span><\/div>\n      <\/div>\n\n      <div class=\"card alertbar\" id=\"alert\" style=\"display:none\">\n        <span class=\"alert-title\">千日手注意報<\/span>\n        <div id=\"alertText\"><\/div>\n      <\/div>\n\n      <div class=\"card warnbar live\" id=\"warn\">持ち駒が残っています。内側の辺（破線）で3つ揃えると負けです。<\/div>\n\n      <div class=\"card turn\" id=\"turn\">\n        <span class=\"swatch s1\" id=\"turnSwatch\"><\/span>\n        <div>\n          <div class=\"who\" id=\"turnWho\">黒の番<\/div>\n          <div class=\"note\" id=\"turnNote\">空いている交点をタップして置きます<\/div>\n        <\/div>\n      <\/div>\n\n      <div class=\"card controls stacked\" id=\"acts\">\n        <button id=\"nextRound\" type=\"button\" class=\"primary\">次のラウンドへ<\/button>\n        <button id=\"kingBtn\" type=\"button\" aria-pressed=\"false\">次は普通の駒を置く<\/button>\n      <\/div>\n\n      <div class=\"card hands\">\n        <div class=\"hand\" id=\"hand1\">\n          <span class=\"name\">黒<\/span>\n          <span class=\"pips\" id=\"pips1\"><\/span>\n          <span class=\"count\" id=\"count1\">4<\/span>\n        <\/div>\n        <div class=\"hand\" id=\"hand2\">\n          <span class=\"name\">青<\/span>\n          <span class=\"pips\" id=\"pips2\"><\/span>\n          <span class=\"count\" id=\"count2\">4<\/span>\n        <\/div>\n      <\/div>\n\n\n      <div class=\"card setting\" id=\"autocard\" style=\"display:none\">\n        <p class=\"eyebrow\">オンライン対戦<\/p>\n        <p class=\"netstate\" id=\"autoState\"><\/p>\n        <div class=\"netbox\" id=\"autoShareBox\" style=\"display:none\">\n          <span class=\"netlabel\">このページのURLを相手に送るだけで、そのまま対戦できます<\/span>\n          <button type=\"button\" id=\"autoShare\" class=\"wide primary\">URLを相手に送る<\/button>\n        <\/div>\n        <p class=\"netmsg\" id=\"autoMsg\" style=\"display:none\"><\/p>\n        <div class=\"netbox\" id=\"autoCtl\">\n          <button type=\"button\" id=\"autoNew\">最初からやり直す<\/button>\n          <button type=\"button\" id=\"autoSolo\">ひとりで指す<\/button>\n        <\/div>\n      <\/div>\n\n      <div class=\"card setting\" id=\"roomcard\" style=\"display:none\">\n        <p class=\"eyebrow\">合言葉対戦<\/p>\n        <p class=\"netstate\" id=\"roomState\"><\/p>\n        <div class=\"netbox\">\n          <span class=\"netlabel\">この卓の合言葉<\/span>\n          <code class=\"netcode\" id=\"roomWord\">—<\/code>\n          <button type=\"button\" id=\"roomShare\">送る<\/button>\n        <\/div>\n        <p class=\"netmsg\" id=\"roomMsg\" style=\"display:none\"><\/p>\n        <div class=\"netbox\">\n          <button type=\"button\" id=\"roomNew\">新しい対局<\/button>\n          <button type=\"button\" id=\"roomHome\">最初に戻る<\/button>\n        <\/div>\n      <\/div>\n      <div class=\"card setting\">\n        <p class=\"eyebrow\">役の設定<\/p>\n        <ul class=\"rt-list\" id=\"ruleToggles\"><\/ul>\n        <button type=\"button\" id=\"preset\" class=\"wide\">推奨設定に戻す<\/button>\n        <p class=\"why\" id=\"ruleWhy\"><\/p>\n      <\/div>\n\n      <div class=\"card setting\">\n        <p class=\"eyebrow\">移動ルール<\/p>\n        <div class=\"seg\" id=\"seg\">\n          <button type=\"button\" id=\"modeFree\" aria-pressed=\"true\">C ／ 自由<\/button>\n          <button type=\"button\" id=\"modeStep\" aria-pressed=\"false\">A ／ 1歩<\/button>\n          <button type=\"button\" id=\"modeSlide\" aria-pressed=\"false\">B ／ 行き当たり<\/button>\n        <\/div>\n        <p class=\"why\" id=\"modeWhy\">線に沿って、駒に当たるまでの好きな交点へ動かします。1つでも端まででも構いません。<\/p>\n      <\/div>\n\n      <div class=\"card setting\" id=\"linkcard\" style=\"display:none\">\n        <p class=\"eyebrow\">リンク対戦<\/p>\n        <div id=\"linkStartBox\" class=\"netbox\">\n          <span class=\"netlabel\">手ごとにリンクを送り合います。相手はブラウザだけあれば遊べます<\/span>\n          <button type=\"button\" id=\"linkNew\" class=\"wide\">リンク対戦を始める<\/button>\n        <\/div>\n        <div id=\"linkLiveBox\" class=\"netbox\" style=\"display:none\">\n          <span class=\"netlabel\">相手に送るリンク<\/span>\n          <code class=\"netcode\" id=\"linkURL\"><\/code>\n          <button type=\"button\" id=\"linkShare\">共有<\/button>\n          <button type=\"button\" id=\"linkCopy\">コピー<\/button>\n          <button type=\"button\" id=\"linkQuit\">やめる<\/button>\n        <\/div>\n        <p class=\"netmsg\" id=\"linkMsg\" style=\"display:none\"><\/p>\n      <\/div>\n\n      <div class=\"card setting\" id=\"srvcard\" style=\"display:none\">\n        <p class=\"eyebrow\">サーバー対戦<\/p>\n        <div id=\"srvJoinBox\" class=\"netbox\">\n          <span class=\"netlabel\">合言葉（2人で同じ言葉を入れます）<\/span>\n          <input type=\"text\" id=\"srvRoom\" autocomplete=\"off\" placeholder=\"あいことば\">\n          <select id=\"srvWant\">\n            <option value=\"0\">色おまかせ<\/option>\n            <option value=\"1\">黒がいい<\/option>\n            <option value=\"2\">青がいい<\/option>\n          <\/select>\n          <button type=\"button\" id=\"srvJoin\">参加<\/button>\n        <\/div>\n        <div id=\"srvLiveBox\" class=\"netbox\" style=\"display:none\">\n          <span class=\"netlabel\" id=\"srvInfo\"><\/span>\n          <code class=\"netcode\" id=\"srvLink\"><\/code>\n          <button type=\"button\" id=\"srvInvite\">招待<\/button>\n          <button type=\"button\" id=\"srvNew\">やり直す<\/button>\n          <button type=\"button\" id=\"srvLeave\">抜ける<\/button>\n        <\/div>\n        <p class=\"netmsg\" id=\"srvMsg\" style=\"display:none\"><\/p>\n      <\/div>\n\n      <div class=\"card setting\" id=\"netcard\" style=\"display:none\">\n        <p class=\"eyebrow\">友達と対戦<\/p>\n        <p class=\"netstate\" id=\"netState\"><\/p>\n        <div id=\"netSend\" class=\"netbox\">\n          <span class=\"netlabel\">相手に送るコード<\/span>\n          <code class=\"netcode\" id=\"netCode\">—<\/code>\n          <button type=\"button\" id=\"netShare\">共有<\/button>\n          <button type=\"button\" id=\"netCopy\">コピー<\/button>\n        <\/div>\n        <div id=\"netStartBox\" class=\"netbox\">\n          <button type=\"button\" id=\"netStart\" class=\"wide primary\">自分から始める（黒）<\/button>\n        <\/div>\n        <div id=\"netRecv\" class=\"netbox\">\n          <span class=\"netlabel\">相手から届いたコード<\/span>\n          <input type=\"text\" id=\"netInput\" inputmode=\"latin\" autocapitalize=\"characters\"\n                 autocomplete=\"off\" placeholder=\"3.7.MC3A1\">\n          <button type=\"button\" id=\"netPaste\">貼付<\/button>\n          <button type=\"button\" id=\"netApply\">反映<\/button>\n        <\/div>\n        <p class=\"netmsg\" id=\"netMsg\" style=\"display:none\"><\/p>\n      <\/div>\n\n      <div class=\"card setting\">\n        <p class=\"eyebrow\">通信対戦の設定<\/p>\n        <div class=\"seg\">\n          <button type=\"button\" id=\"netOff\" aria-pressed=\"true\">オフ<\/button>\n          <button type=\"button\" id=\"netB\" aria-pressed=\"false\">黒として<\/button>\n          <button type=\"button\" id=\"netA\" aria-pressed=\"false\">青として<\/button>\n        <\/div>\n        <p class=\"why\">2台で遊ぶときに使います。自分の番に出るコードを「共有」で相手へ送り、届いたコードを「貼付」で取り込みます。メールでもLINEでも構いません。切り替えると対局が最初からになります。<\/p>\n      <\/div>\n\n      <div class=\"card setting\">\n        <p class=\"eyebrow\">対戦相手<\/p>\n        <div class=\"seg\">\n          <button type=\"button\" id=\"cpuOff\" aria-pressed=\"false\">二人で<\/button>\n          <button type=\"button\" id=\"cpu2\" aria-pressed=\"true\">CPUが青<\/button>\n          <button type=\"button\" id=\"cpu1\" aria-pressed=\"false\">CPUが黒<\/button>\n        <\/div>\n        <div class=\"seg\">\n          <button type=\"button\" id=\"lv1\" aria-pressed=\"true\">ふつう<\/button>\n          <button type=\"button\" id=\"lv2\" aria-pressed=\"false\">つよい<\/button>\n        <\/div>\n        <p class=\"why\">切り替えると新しい対局が始まります。<\/p>\n      <\/div>\n\n      <div class=\"card controls\">\n        <button id=\"undo\" type=\"button\">待った<\/button>\n        <button id=\"reset\" type=\"button\">最初から<\/button>\n      <\/div>\n\n      <details class=\"card rules\">\n        <summary>勝敗の条件<\/summary>\n        <dl>\n          <dt><span class=\"no\">1点<\/span>王奪<\/dt>\n          <dd>中四方の没収で、相手の王を取る。<\/dd>\n\n          <dt><span class=\"no\">2点<\/span>三星（内・外）<\/dt>\n          <dd>交点3つの直線を自分の駒3つで埋める。実線6本が外三星、破線4本が内三星。<\/dd>\n\n          <dt><span class=\"no\">4点<\/span>三王星<\/dt>\n          <dd>三星の真ん中の交点に自分の王がある。三星2点の代わりに4点。<\/dd>\n\n          <dt><span class=\"no\">3点<\/span>四連<\/dt>\n          <dd>交点5つの長い対角線で、隣り合う4交点を占める。<code>A1 B2 C3 D4<\/code> のように飛ばしは不可。<\/dd>\n\n          <dt><span class=\"no\">5点<\/span>四連王列<\/dt>\n          <dd>四連の内側2つ、たとえば <code>A1 B2 C3 D4<\/code> なら B2 か C3 に自分の王がある。四連3点の代わりに5点。<\/dd>\n\n          <dt><span class=\"no\">3点<\/span>四方<\/dt>\n          <dd>内 <code>A3 C1 C5 E3<\/code> の4頂点をすべて占める。外 <code>A1 A5 E1 E5<\/code> は役の設定から有効にできます。<\/dd>\n\n          <dt><span class=\"no\">王<\/span>持ち駒4つのうち1つ<\/dt>\n          <dd>各プレイヤーの4つのうち1つが王です。いつ置くかは自分で選べます。盤上では中の輪で示され、動き方は普通の駒と同じです。<\/dd>\n\n          <dt><span class=\"no\">進行<\/span>13点先取・攻守交代<\/dt>\n          <dd>得点が入るとそのラウンドは終わり、盤を空にして次のラウンドへ進みます。先攻は毎ラウンド入れ替わります。合計13点に先に届いた側の勝ちです。<\/dd>\n\n          <dt class=\"bad\"><span class=\"no\">即負<\/span>早三星<\/dt>\n          <dd>どちらかの盤外にまだ駒が残っている状態で破線の三点線を揃えたら、その時点で負けです。13点の勝負とは関係なく、点差がどうであっても揃えた側が敗れます。8個すべてが盤上に出れば、その手も含めて内三星として得点になります。<\/dd>\n\n          <dt class=\"bad\"><span class=\"no\">没収<\/span>中四方<\/dt>\n          <dd><code>B2 B4 D2 D4<\/code>（紫の輪が付いた4点）を自分の駒4つすべてで占めると、相手の駒を1つ選んで取ります。王を取れば王奪で1点入り、そのラウンドは終わります。普通の駒を取った場合は得点なしでラウンドが続きます。相手が2つになったら交戦不能で2点です。<\/dd>\n\n          <dt><span class=\"no\">移動<\/span>駒は飛び越えられません<\/dt>\n          <dd>線の途中に駒があると、そこで止まります。駒を選ぶと、届く範囲が薄い線で、塞いでいる駒が赤い輪で表示されます。<\/dd>\n\n          <dt><span class=\"no\">移動<\/span>角渡り<\/dt>\n          <dd>対角どうしの角、つまり <code>A1↔E5<\/code> と <code>A5↔E1<\/code> の2組だけは、間に何があっても行き来できます。行き先が空いていれば良く、C3を押さえられていても通ります。辺で隣り合う角（A1↔A5 など）は対象外で、途中に駒があれば止まります。選択中は点線で表示されます。<\/dd>\n\n          <dt><span class=\"no\">手番<\/span>置くか、動かすか<\/dt>\n          <dd>自分の番にできるのは1つだけ。持ち駒が残っていても、盤上の駒を動かして構いません。<\/dd>\n\n          <dt><span class=\"no\">引分<\/span>千日手<\/dt>\n          <dd>同じ局面が3回現れたら千日手。得点なしで攻守交代します。盤は90度回転すると自分自身に重なるので、回転して同じ形も同一局面として数えます。<\/dd>\n\n          <dt><span class=\"no\">打切<\/span>引き分け7連続<\/dt>\n          <dd>千日手が7ラウンド続いたら対局終了。その7ラウンドで千日手を多く起こした側の負けです。同数なら第1ラウンドの先攻（黒）の負けとします。<\/dd>\n        <\/dl>\n        <div class=\"legend\">\n          <svg width=\"34\" height=\"8\" aria-hidden=\"true\"><line x1=\"2\" y1=\"4\" x2=\"32\" y2=\"4\" stroke=\"var(--danger)\" stroke-width=\"2.6\" stroke-dasharray=\"9 7\"><\/line><\/svg>\n          赤い破線 = 内側の辺。揃えると早三星で反則負け\n        <\/div>\n        <div class=\"legend\">\n          <svg width=\"34\" height=\"16\" aria-hidden=\"true\"><circle cx=\"9\" cy=\"8\" r=\"6\" fill=\"none\" stroke=\"var(--capture)\" stroke-width=\"2.2\" stroke-dasharray=\"3 5\"><\/circle><circle cx=\"26\" cy=\"8\" r=\"6\" fill=\"none\" stroke=\"var(--capture)\" stroke-width=\"2.2\" stroke-dasharray=\"3 5\"><\/circle><\/svg>\n          紫の輪 = 中四方の4点。線ではありません\n        <\/div>\n      <\/details>\n\n      <div class=\"card log\">\n        <h2 class=\"eyebrow\">棋譜<\/h2>\n        <ol id=\"moves\"><\/ol>\n        <p class=\"empty\" id=\"movesEmpty\">まだ着手はありません。<\/p>\n      <\/div>\n    <\/div>\n  <\/div>\n\n  <footer>紫の輪が付いた4点 B2・B4・D2・D4 が中四方（没収）の形です。輪どうしは線でつながっていないので、そこを直接は動けません。交点は13箇所（A1・A3・A5／B2・B4／C1・C3・C5／D2・D4／E1・E3・E5）。直線は12本で、うち交点3つが10本、交点5つが2本です。<\/footer>\n<\/div>\n\n");
+
+(function(){
+  "use strict";
+
+  /* ===== 盤の定義 ===== */
+  var POINTS = ["A1","A3","A5","B2","B4","C1","C3","C5","D2","D4","E1","E3","E5"];
+  var ROWS = {A:1,B:2,C:3,D:4,E:5};
+  var IX = {}; POINTS.forEach(function(p,i){ IX[p]=i; });
+  var FULL = (1<<13) - 1;
+  function bm(list){ var m=0; list.forEach(function(p){ m|=1<<IX[p]; }); return m; }
+
+  var INNER_SIDES = [["A3","B2","C1"],["A3","B4","C5"],["C1","D2","E3"],["C5","D4","E3"]];
+  var LINES3 = [["A1","A3","A5"],["C1","C3","C5"],["E1","E3","E5"],
+                ["A1","C1","E1"],["A3","C3","E3"],["A5","C5","E5"]].concat(INNER_SIDES);
+  var LINES5 = [["A1","B2","C3","D4","E5"],["A5","B4","C3","D2","E1"]];
+  var ALL_LINES = LINES3.concat(LINES5);
+  var SQ_LIST = [
+    {key:"shihoSoto", pts:["A1","A5","E1","E5"], name:"四方（外）"},
+    {key:"shihoIn",   pts:["A3","C1","C5","E3"], name:"四方（内）"}
+  ];
+  var SQUARES = SQ_LIST.map(function(q){ return q.pts; });
+  var XPTS = ["B2","B4","D2","D4"];        // Xの中心4点。没収の四角形
+  var CORNERS = ["A1","A5","E1","E5"];      // 四隅
+  var OPPOSITE = {A1:"E5", E5:"A1", A5:"E1", E1:"A5"};   // 角渡りは対角の組だけ
+
+  var L3M = LINES3.map(bm), INNERM = INNER_SIDES.map(bm);
+  var L5W = [];   // 五点線の連続4交点
+  LINES5.forEach(function(l){ for(var w=0;w+4<=l.length;w++) L5W.push({m:bm(l.slice(w,w+4)), pts:l.slice(w,w+4), line:l}); });
+  var SQM = SQ_LIST.map(function(q){ return {key:q.key, m:bm(q.pts), pts:q.pts, name:q.name}; });
+  var XSQ = bm(XPTS);
+  var OPP_IX = [];
+  for (var ci=0; ci<13; ci++) OPP_IX.push(OPPOSITE[POINTS[ci]] === undefined ? -1 : IX[OPPOSITE[POINTS[ci]]]);
+
+  var RAYS = [], EDGES = [];
+  for (var i0=0;i0<13;i0++) RAYS.push([]);
+  ALL_LINES.forEach(function(line){
+    line.forEach(function(p,i){
+      if (i+1 < line.length) RAYS[IX[p]].push(line.slice(i+1).map(function(q){ return IX[q]; }));
+      if (i > 0) RAYS[IX[p]].push(line.slice(0,i).reverse().map(function(q){ return IX[q]; }));
+    });
+    for (var k=0;k+1<line.length;k++) EDGES.push([line[k], line[k+1]]);
+  });
+
+  var POP = new Uint8Array(1<<13);
+  for (var v0=1; v0<(1<<13); v0++) POP[v0] = POP[v0>>1] + (v0&1);
+
+  function isInnerSide(pts){ var m=bm(pts); return INNERM.indexOf(m) >= 0; }
+
+  /* ===== 役の設定 ===== */
+  var PRESET = { sotoSanzei:true, uchiSanzei:true, shiren:true,
+                 shihoIn:true, shihoSoto:false, hayaSanzei:true, chuShiho:true,
+                 kadoWatari:true, mode:"free" };
+  var RULES = {};
+  for (var pk in PRESET) RULES[pk] = PRESET[pk];
+
+  var A_L3 = [], A_L5 = [], A_SQ = [];
+  function applyRules(){
+    A_L3 = [];
+    LINES3.forEach(function(l, i){
+      var inner = isInnerSide(l);
+      if (inner ? RULES.uchiSanzei : RULES.sotoSanzei)
+        A_L3.push({m:L3M[i], pts:l, name: inner ? "内三星" : "外三星"});
+    });
+    A_L5 = RULES.shiren ? L5W.slice() : [];
+    A_SQ = SQM.filter(function(q){ return RULES[q.key]; });
+    mode = RULES.mode;
+  }
+
+  /* ===== ルールの中身（純粋関数） ===== */
+  var mode = "free";      // "step" | "slide" | "free"
+
+  function destsOf(i, occ){
+    var out=[], r, k, j, d;
+    for (r=0;r<RAYS[i].length;r++){
+      var ray = RAYS[i][r];
+      if (mode === "step"){ if (!((occ>>ray[0])&1)) out.push(ray[0]); }
+      else if (mode === "free"){
+        for (k=0;k<ray.length;k++){ j=ray[k]; if ((occ>>j)&1) break; out.push(j); }
+      } else {
+        d = -1;
+        for (k=0;k<ray.length;k++){ j=ray[k]; if ((occ>>j)&1) break; d=j; }
+        if (d >= 0) out.push(d);
+      }
+    }
+    // 角渡り: 対角の角どうし（A1↔E5、A5↔E1）だけは、間に何があっても行き来できる
+    if (RULES.kadoWatari && OPP_IX[i] >= 0){
+      j = OPP_IX[i];
+      if (!((occ>>j)&1) && out.indexOf(j) < 0) out.push(j);
+    }
+    return out;
+  }
+  // 角渡りでしか行けない相手（表示用）
+  function jumpDests(i, occ){
+    if (!RULES.kadoWatari || OPP_IX[i] < 0) return [];
+    var plain = [], r, k, j, d;
+    for (r=0;r<RAYS[i].length;r++){
+      var ray = RAYS[i][r];
+      if (mode === "step"){ if (!((occ>>ray[0])&1)) plain.push(ray[0]); }
+      else if (mode === "free"){ for (k=0;k<ray.length;k++){ j=ray[k]; if ((occ>>j)&1) break; plain.push(j); } }
+      else { d=-1; for (k=0;k<ray.length;k++){ j=ray[k]; if ((occ>>j)&1) break; d=j; } if (d>=0) plain.push(d); }
+    }
+    var o = OPP_IX[i];
+    return (o >= 0 && !((occ>>o)&1) && plain.indexOf(o) < 0) ? [o] : [];
+  }
+  var NAME = ["", "黒", "青"];
+  var SCORE = { ouda:1, sansei:2, oujou:4, shiren:3, shirenou:5, shiho:3, kousen:2 };
+  var GOAL = 13;
+  var DRAW_LIMIT = 7;
+
+  // 得点になる役を、高い順に判定する
+  function scoreOf(m, king){
+    var i, k;
+    // 四連王列 5点
+    if (RULES.shiren) for (i=0;i<A_L5.length;i++){
+      var W = A_L5[i];
+      if ((m & W.m) === W.m && king && (king === (1<<IX[W.pts[1]]) || king === (1<<IX[W.pts[2]])))
+        return {p:SCORE.shirenou, name:"四連王列", pts:W.pts, shape:"line"};
+    }
+    // 三王星 4点
+    for (i=0;i<A_L3.length;i++){
+      var L = A_L3[i];
+      if ((m & L.m) === L.m && king === (1<<IX[L.pts[1]]))
+        return {p:SCORE.oujou, name:"三王星", pts:L.pts, shape:"line"};
+    }
+    // 四連 3点
+    if (RULES.shiren) for (i=0;i<A_L5.length;i++)
+      if ((m & A_L5[i].m) === A_L5[i].m)
+        return {p:SCORE.shiren, name:"四連", pts:A_L5[i].pts, shape:"line"};
+    // 四方 3点
+    for (i=0;i<A_SQ.length;i++)
+      if ((m & A_SQ[i].m) === A_SQ[i].m)
+        return {p:SCORE.shiho, name:(A_SQ.length>1?A_SQ[i].name:"四方"), pts:A_SQ[i].pts, shape:"square"};
+    // 三星 2点
+    for (i=0;i<A_L3.length;i++)
+      if ((m & A_L3[i].m) === A_L3[i].m)
+        return {p:SCORE.sansei, name:A_L3[i].name, pts:A_L3[i].pts, shape:"line"};
+    return null;
+  }
+
+  function winLine(m){
+    var i;
+    for (i=0;i<A_L3.length;i++) if ((m & A_L3[i].m) === A_L3[i].m)
+      return {kind:A_L3[i].name, pts:A_L3[i].pts, shape:"line",
+              text:A_L3[i].name + "　" + A_L3[i].pts.join("・")};
+    for (i=0;i<A_L5.length;i++) if ((m & A_L5[i].m) === A_L5[i].m)
+      return {kind:"四連", pts:A_L5[i].pts, shape:"line", text:"四連　" + A_L5[i].pts.join("・")};
+    for (i=0;i<A_SQ.length;i++) if ((m & A_SQ[i].m) === A_SQ[i].m)
+      return {kind:"四方", pts:A_SQ[i].pts, shape:"square",
+              text:(A_SQ.length > 1 ? A_SQ[i].name : "四方") + "　" + A_SQ[i].pts.join("・")};
+    return null;
+  }
+  function innerHit(m){
+    for (var i=0;i<INNERM.length;i++) if ((m & INNERM[i]) === INNERM[i]) return INNER_SIDES[i];
+    return null;
+  }
+  // B2・B4・D2・D4 をすべて自分の駒で占めたら没収が発生する
+  function xFormed(m){ return m === XSQ; }
+
+  function newPos(first){
+    return {m:[0,0,0], k:[0,0,0], kh:[0,1,1], h:[0,4,4],
+            turn:first||1, cap:0, next:0};
+  }
+  function tot(P, pl){ return POP[P.m[pl]] + P.h[pl]; }
+  function clone(P){
+    return {m:[0,P.m[1],P.m[2]], k:[0,P.k[1],P.k[2]], kh:[0,P.kh[1],P.kh[2]],
+            h:[0,P.h[1],P.h[2]], turn:P.turn, cap:P.cap, next:P.next};
+  }
+
+  function legalActions(P){
+    var out=[], i, j, d;
+    if (P.cap){
+      var vic = P.cap === 1 ? 2 : 1;  // 没収する側が、相手の駒から1つ選ぶ
+      var fm = P.m[vic];
+      for (i=0;i<13;i++) if ((fm>>i)&1) out.push({t:"x", i:i});
+      return out;
+    }
+    var me = P.turn, mine = P.m[me], occ = P.m[1]|P.m[2], empt = FULL & ~occ;
+    if (P.h[me] > 0){
+      var mustKing = (P.kh[me] === 1 && P.h[me] === 1);   // 残り1つが王なら王しか置けない
+      for (i=0;i<13;i++){
+        if (!((empt>>i)&1)) continue;
+        if (P.kh[me] === 1) out.push({t:"p", i:i, king:1});
+        if (!mustKing) out.push({t:"p", i:i, king:0});
+      }
+    }
+    for (i=0;i<13;i++){
+      if (!((mine>>i)&1)) continue;
+      d = destsOf(i, occ);
+      for (j=0;j<d.length;j++) out.push({t:"m", i:i, j:d[j]});
+    }
+    return out;
+  }
+
+  // 戻り値 {P, ev, end}
+  // end = null | {scorer, p:得点, name, text, pts, shape, foul?}
+  function apply(P0, a){
+    var P = clone(P0), me = P.turn, foe = me === 1 ? 2 : 1, ev = null;
+
+    if (a.t === "x"){                       // 没収する側が、相手の駒を1つ選ぶ
+      var by = P.cap, vic = by === 1 ? 2 : 1, bit = 1<<a.i;
+      var wasKing = (P.k[vic] === bit);
+      P.m[vic] &= ~bit;
+      if (wasKing) P.k[vic] = 0;
+      ev = {cap:{at:a.i, by:by, victim:vic, king:wasKing}};
+      P.cap = 0;
+      if (wasKing)
+        return {P:P, ev:ev, end:{scorer:by, p:SCORE.ouda, name:"王奪",
+          text:"王奪　" + POINTS[a.i] + " の王を奪いました", pts:[POINTS[a.i]], shape:"point"}};
+      if (tot(P, vic) <= 2)
+        return {P:P, ev:ev, end:{scorer:by, p:SCORE.kousen, name:"交戦不能",
+          text:"交戦不能　" + NAME[vic] + "の駒が2つになりました", pts:[], shape:"line"}};
+      P.turn = P.next; P.next = 0;
+      return afterTurn(P, ev);
+    }
+
+    if (a.t === "p"){
+      P.m[me] |= 1<<a.i; P.h[me] -= 1;
+      if (a.king){ P.k[me] = 1<<a.i; P.kh[me] = 0; }
+    } else {
+      var from = 1<<a.i, to = 1<<a.j;
+      P.m[me] = (P.m[me] & ~from) | to;
+      if (P.k[me] === from) P.k[me] = to;
+    }
+
+    // 早三星（反則）: どちらかの盤外にまだ駒が残っている状態で、内側の辺を揃えること。
+    // 8個すべてが盤上に出れば、その手も含めて内三星として得点になる。
+    var handsLeft = (P.h[1] > 0 || P.h[2] > 0);
+    var bad = RULES.hayaSanzei ? innerHit(P.m[me]) : null;
+    if (bad && handsLeft)
+      return {P:P, ev:null, end:{scorer:foe, p:0, name:"早三星", foul:true, fouler:me, matchLoss:true,
+        text:"早三星　" + bad.join("・") + "（盤外に駒が残ったまま内側の辺を揃えました）。得点に関係なく " + NAME[me] + " の負けです",
+        pts:bad, shape:"line"}};
+
+    var sc = scoreOf(P.m[me], P.k[me]);
+    if (sc) return {P:P, ev:null, end:{scorer:me, p:sc.p, name:sc.name,
+      text:sc.name + "　" + sc.pts.join("・"), pts:sc.pts, shape:sc.shape}};
+
+    if (RULES.chuShiho && xFormed(P.m[me])){
+      P.cap = me; P.next = foe;      // 没収するのは自分。選ぶのも自分
+      return {P:P, ev:{trigger:{by:me}}, end:null};
+    }
+
+    P.turn = foe;
+    return afterTurn(P, null);
+  }
+
+  function afterTurn(P, ev){
+    var t = P.turn;
+    if (P.h[t] === 0){
+      var occ = P.m[1]|P.m[2], any = false;
+      for (var i=0;i<13 && !any;i++) if (((P.m[t]>>i)&1) && destsOf(i, occ).length) any = true;
+      if (!any) return {P:P, ev:ev, end:{scorer: t===1?2:1, p:SCORE.kousen, name:"手詰まり",
+        text:"手詰まり　" + NAME[t] + "が動けません", pts:[], shape:"line"}};
+    }
+    return {P:P, ev:ev, end:null};
+  }
+
+  /* ===== 評価と探索 ===== */
+  function threats(mine, foe, hand){
+    var t=0, c=0, i;
+    for (i=0;i<A_L3.length;i++){
+      var L=A_L3[i].m;
+      if ((mine & L) && POP[mine & L]===2 && !(foe & L)) t += 1;
+    }
+    if (RULES.hayaSanzei){
+      for (i=0;i<INNERM.length;i++)
+        if (hand>0 && POP[mine & INNERM[i]]===2 && !(foe & INNERM[i])) t -= 2;  // 早三星の危険
+    }
+    for (i=0;i<A_L5.length;i++){ var W=A_L5[i].m; if (POP[mine&W]===3 && !(foe&W)) t += 1; }
+    for (i=0;i<A_SQ.length;i++){ var Q=A_SQ[i].m; if (POP[mine&Q]===3 && !(foe & Q)) t += 2; }
+    if (RULES.chuShiho){
+      var x = POP[mine & XSQ];
+      if (x === 3 && !(foe & XSQ & ~mine)) c += 3;
+      else if (x === 3) c += 1;
+    }
+    return t*10 + c*9;
+  }
+  function evaluate(P, me){
+    var foe = me===1?2:1;
+    var kingBonus = (P.k[me] ? 60 : 0) - (P.k[foe] ? 60 : 0);
+    return 140*(tot(P,me)-tot(P,foe)) + kingBonus
+         + threats(P.m[me], P.m[foe], P.h[me])
+         - 1.15*threats(P.m[foe], P.m[me], P.h[foe]);
+  }
+  function endValue(end, me){
+    if (end.matchLoss) return (end.fouler === me ? -1 : 1) * 200000;
+    return (end.scorer === me ? 1 : -1) * end.p * 1000;
+  }
+  var INF = 1e9, nodes = 0, deadline = 0;
+
+  function search(P, depth, alpha, beta, me){
+    nodes++;
+    if ((nodes & 511) === 0 && Date.now() > deadline) throw "timeout";
+    var acts = legalActions(P);
+    if (!acts.length) return P.turn === me ? -INF/2 : INF/2;
+    if (depth <= 0) return evaluate(P, me);
+    var maximizing = (P.cap ? P.cap : P.turn) === me;
+    var best = maximizing ? -INF : INF, k;
+    // 手の並べ替え: 没収と決まり手を先に
+    for (k=0;k<acts.length;k++){
+      var r = apply(P, acts[k]), s;
+      if (r.end){
+        s = endValue(r.end, me);
+        s = s > 0 ? s - (10 - depth) : s + (10 - depth);
+      } else {
+        s = search(r.P, depth - 1, alpha, beta, me);
+      }
+      if (maximizing){ if (s > best) best = s; if (best > alpha) alpha = best; }
+      else { if (s < best) best = s; if (best < beta) beta = best; }
+      if (beta <= alpha) break;
+    }
+    return best;
+  }
+
+  function pickAction(P, maxDepth, ms){
+    var me = P.cap ? P.cap : P.turn;
+    var acts = legalActions(P);
+    if (acts.length === 1) return acts[0];
+    var best = acts[0], d;
+    deadline = Date.now() + ms; nodes = 0;
+    for (d = 1; d <= maxDepth; d++){
+      try {
+        var localBest = null, localScore = -INF, alpha = -INF;
+        for (var k=0;k<acts.length;k++){
+          var r = apply(P, acts[k]), s;
+          if (r.end) s = endValue(r.end, me);
+          else s = search(r.P, d - 1, alpha, INF, me);
+          if (localBest === null || s > localScore){ localScore = s; localBest = acts[k]; }
+          if (s > alpha) alpha = s;
+        }
+        best = localBest;
+        if (localScore >= 5000) break;
+      } catch(e){ break; }
+    }
+    return best;
+  }
+
+  /* ===== UI 状態 ===== */
+  var S = { P:newPos(1), stack:[], log:[], end:null, pick:null, seen:{},
+            lastMove:null, capInfo:null, cpu:2, level:1,
+            pts:[0,0,0], round:1, first:1, placeKing:false, matchOver:null,
+            drawStreak:0, drawCause:[0,0,0], matchNote:"",
+            net:0, ply:0, lastCode:"", netMsg:"",
+            srv:null, srvMsg:"", srvBusy:false,
+            link:null, codes:[], linkMsg:"",
+            auto:false, autoPending:false, autoBusy:false, autoOff:false,
+            autoRO:false, autoDirty:false, autoMsg:"", watch:false,
+            gate:true, room:false, roomMsg:"", roomErr:false,
+            roomBusy:false, roomDirty:false, artReady:false };
+
+  // 盤は90度回転で自分自身に重なる。回転して同じなら同一局面として扱う
+  var ROT = (function(){
+    var rows={A:1,B:2,C:3,D:4,E:5}, inv=["","A","B","C","D","E"];
+    var one = POINTS.map(function(p){
+      var r = rows[p[0]], c = Number(p[1]);
+      return IX[inv[c] + (6 - r)];              // (r,c) -> (c, 6-r)
+    });
+    var all=[POINTS.map(function(_,i){return i;})], cur=one;
+    for (var t=0;t<3;t++){ all.push(cur.slice()); cur = cur.map(function(j){ return one[j]; }); }
+    return all;
+  })();
+  function rotMask(m, perm){
+    var r=0;
+    for (var i=0;i<13;i++) if ((m>>i)&1) r |= 1<<perm[i];
+    return r;
+  }
+  function posKey(P){
+    var best=null;
+    for (var t=0;t<ROT.length;t++){
+      var pm=ROT[t];
+      var k = rotMask(P.m[1],pm)+"/"+rotMask(P.m[2],pm)+"/"+rotMask(P.k[1],pm)+"/"+rotMask(P.k[2],pm)
+            +"/"+P.h[1]+P.h[2]+"/"+P.turn+"/"+P.cap;
+      if (best===null || k < best) best = k;
+    }
+    return best;
+  }
+  // いま指すと千日手になる手（同一局面3回目）を洗い出す。置く手は手駒が減るので繰り返しにならない
+  function drawRiskMoves(){
+    var out = [];
+    if (S.end || S.P.cap) return out;
+    var A = legalActions(S.P);
+    for (var i=0;i<A.length;i++){
+      var a = A[i];
+      if (a.t !== "m") continue;
+      var r = apply(S.P, a);
+      if (r.end || r.P.cap) continue;
+      var k = posKey(r.P);
+      if ((S.seen[k] || 0) + 1 >= 3) out.push({from:POINTS[a.i], to:POINTS[a.j]});
+    }
+    return out;
+  }
+  function seenCount(){ return S.seen[posKey(S.P)] || 0; }
+  function cutoffLoser(){
+    return S.drawCause[1] > S.drawCause[2] ? 1
+         : (S.drawCause[2] > S.drawCause[1] ? 2 : S.first0);
+  }
+
+  function humanTurn(){
+    if (S.end || S.matchOver) return false;
+    if (S.gate || S.autoPending || S.watch || S.autoBusy || S.roomBusy) return false;
+    var actor = S.P.cap ? S.P.cap : S.P.turn;
+    if (S.net) return actor === S.net;
+    return S.cpu === 0 || actor !== S.cpu;
+  }
+
+  function encAction(a){
+    if (a.t === "p") return "p" + POINTS[a.i] + (a.king ? "K" : "");
+    if (a.t === "m") return "m" + POINTS[a.i] + POINTS[a.j];
+    return "x" + POINTS[a.i];
+  }
+  function decAction(str){
+    var t = str[0], b = str.slice(1);
+    if (t === "p"){
+      var king = b.slice(-1) === "K"; if (king) b = b.slice(0,-1);
+      if (IX[b] === undefined) return null;
+      return {t:"p", i:IX[b], king: king ? 1 : 0};
+    }
+    if (t === "m"){
+      var f = b.slice(0,2), g = b.slice(2,4);
+      if (IX[f] === undefined || IX[g] === undefined) return null;
+      return {t:"m", i:IX[f], j:IX[g]};
+    }
+    if (t === "x"){ if (IX[b] === undefined) return null; return {t:"x", i:IX[b]}; }
+    return null;
+  }
+  function sameAction(a, b){
+    return a.t === b.t && a.i === b.i && (a.j === b.j || (a.j === undefined && b.j === undefined))
+           && ((a.king?1:0) === (b.king?1:0));
+  }
+  function applyCode(str){
+    str = (str || "").toUpperCase();
+    var m = /(\d+)\.(\d+)\.([PMX][A-E1-5K]{2,5})/.exec(str);
+    if (!m){ S.netMsg = "コードの形が違います。例 3.7.MC3A1"; return render(null); }
+    var r = Number(m[1]), ply = Number(m[2]);
+    var a = decAction(m[3][0].toLowerCase() + m[3].slice(1));
+    if (!a){ S.netMsg = "その交点は盤にありません。"; return render(null); }
+    if (r === 1 && ply === 1 && (S.round !== 1 || S.ply !== 0)){
+      var keepNet = S.net, keepLink = S.link, keepCodes = S.codes, keepSrv = S.srv;
+      reset(); S.net = keepNet; S.link = keepLink; S.codes = keepCodes; S.srv = keepSrv;
+    }
+    if (r !== S.round){ S.netMsg = "ラウンドが合いません。こちらは第" + S.round + "ラウンドです。"; return render(null); }
+    if (ply !== S.ply + 1){ S.netMsg = "手数が合いません。こちらは" + (S.ply + 1) + "手目待ちです。"; return render(null); }
+    var legal = legalActions(S.P);
+    var ok = false;
+    for (var i=0;i<legal.length;i++) if (sameAction(legal[i], a)){ a = legal[i]; ok = true; break; }
+    if (!ok){ S.netMsg = "その手はこの局面で指せません。"; return render(null); }
+    S.netMsg = "";
+    S.srvApplying = true;
+    try { doAction(a); } finally { S.srvApplying = false; }
+    if (!S.net && !S.srv){                     // 初めて受け取った側は、いまの手番が自分の色
+      S.net = S.P.cap ? S.P.cap : S.P.turn;
+      S.cpu = 0;                                  // reset() を呼ばずに CPU を切る
+      ["cpuOff","cpu2","cpu1"].forEach(function(id,k){
+        document.getElementById(id).setAttribute("aria-pressed", String([0,2,1][k] === 0)); });
+      ["netOff","netB","netA"].forEach(function(id,k){
+        document.getElementById(id).setAttribute("aria-pressed", String([0,1,2][k] === S.net)); });
+      S.netMsg = "あなたは " + NAME[S.net] + " です。";
+      render(null);
+    }
+  }
+
+  /* ===== リンク対戦（相手はブラウザだけあればよい） ===== */
+  var LKEY = "jusanboshi.g.";
+  function linkSave(){
+    if (!S.link) return;
+    try { localStorage.setItem(LKEY + S.link.gid,
+      JSON.stringify({codes:S.codes, color:S.net})); } catch(e){}
+  }
+  function linkLoad(gid){
+    try { return JSON.parse(localStorage.getItem(LKEY + gid) || "null"); } catch(e){ return null; }
+  }
+  function linkReplay(codes){
+    S.linkReplaying = true;
+    try { return linkReplayInner(codes); } finally { S.linkReplaying = false; }
+  }
+  function linkReplayInner(codes){
+    for (var i=0;i<codes.length;i++){
+      var before = S.ply + S.round * 1000;
+      applyCode(codes[i]);
+      if (S.end && !S.matchOver) nextRound();
+      if (S.ply + S.round * 1000 === before) return false;   // 途中で食い違った
+    }
+    return true;
+  }
+  function linkStart(){
+    var gid = Math.random().toString(36).slice(2, 8);
+    S.link = {gid:gid}; S.codes = [];
+    S.net = 1;                       // 始めた側が黒
+    S.srv = null; S.cpu = 0;
+    resetKeepLink();
+    S.linkMsg = "対局を作りました。最初の手を指して、出てきたリンクを相手に送ってください。";
+    linkSave(); render(null);
+  }
+  function resetKeepLink(){
+    var keep = S.link, codes = S.codes, color = S.net;
+    reset();
+    S.link = keep; S.codes = codes; S.net = color;
+  }
+  function linkURL(){
+    if (!S.link || !S.lastCode) return "";
+    var base = location.href.split("#")[0];
+    return base + "#g=" + S.link.gid + "&c=" + S.lastCode;
+  }
+  function linkIncoming(gid, code){
+    var saved = linkLoad(gid);
+    S.link = {gid:gid};
+    S.codes = (saved && saved.codes) ? saved.codes.slice() : [];
+    S.net = (saved && saved.color) ? saved.color : 0;
+    S.srv = null; S.cpu = 0;
+    resetKeepLink();
+    if (!linkReplay(S.codes)){
+      S.linkMsg = "保存していた手順と食い違いました。相手に最初からやり直してもらってください。";
+      return render(null);
+    }
+    if (S.codes.indexOf(code) < 0){
+      var before = S.ply + S.round * 1000;
+      applyCode(code);
+      if (S.ply + S.round * 1000 === before){
+        S.linkMsg = "受け取った手を反映できませんでした。" + (S.netMsg || "");
+        return render(null);
+      }
+      // doAction 側で S.codes に積まれ、保存もされる
+    }
+    if (!S.net) S.net = S.P.turn;      // 相手が指した直後なので、いまの手番が自分
+    S.linkMsg = "あなたは " + NAME[S.net] + " です。";
+    linkSave(); render(null);
+  }
+
+  // リンクを開いたとき（ページを開いたままリンクを踏んだ場合も含む）
+  function handleHash(){
+    try {
+      var hash = (location.hash || "").replace(/^#/, "");
+      var mg = /g=([a-z0-9]+)/i.exec(hash);
+      var mc = /c=(\d+\.\d+\.[PMX][A-E1-5K]{2,5})/i.exec(hash);
+      if (mg && mc) return linkIncoming(mg[1], mc[1].toUpperCase());
+      if (mg){
+        var sv = linkLoad(mg[1]);
+        if (sv){
+          S.link = {gid:mg[1]}; S.codes = sv.codes.slice(); S.net = sv.color;
+          S.srv = null; S.cpu = 0;
+          resetKeepLink(); linkReplay(S.codes); render(null);
+        }
+      }
+    } catch(e){ S.linkMsg = "リンクを読み込めませんでした。"; render(null); }
+  }
+
+  /* ===== サーバー対戦 ===== */
+  function api(path, opts){
+    return fetch(path, opts).then(function(r){
+      return r.json().then(function(j){ if (!r.ok) throw j; return j; });
+    });
+  }
+  function srvJoin(){
+    var roomEl = document.getElementById("srvRoom");
+    var name = (roomEl.value || "").trim();
+    if (!name){ S.srvMsg = "合言葉を入れてください。"; return render(null); }
+    var want = Number(document.getElementById("srvWant").value || 0);
+    var saved = null;
+    try { saved = JSON.parse(localStorage.getItem("jusanboshi.seat." + name) || "null"); } catch(e){}
+    S.srvMsg = "接続しています…"; render(null);
+    api("/api/join", {method:"POST", headers:{"content-type":"application/json"},
+      body: JSON.stringify({room:name, want:want, token: saved && saved.token})})
+      .then(function(j){
+        try { localStorage.setItem("jusanboshi.seat." + name, JSON.stringify({token:j.token})); } catch(e){}
+        S.srv = {room:name, color:j.color, token:j.token, applied:0};
+        S.net = j.color; S.cpu = 0;
+        reset();
+        S.srv.applied = 0;
+        applyIncoming(j.codes || []);
+        S.srvMsg = "参加しました。あなたは " + NAME[j.color] + " です。";
+        render(null);
+        srvPoll();
+      })
+      .catch(function(e){
+        S.srvMsg = (e && e.error === "room_full") ? "その合言葉の席は埋まっています。別の合言葉にしてください。"
+                 : "サーバーにつながりません。server.js が動いているか確認してください。";
+        render(null);
+      });
+  }
+  function applyIncoming(codes){
+    for (var i=0;i<codes.length;i++){
+      var before = S.ply, r0 = S.round;
+      applyCode(codes[i]);
+      S.srv.applied += 1;
+      if (S.ply === before && S.round === r0 && S.netMsg) break;   // 適用できずに止まった
+    }
+  }
+  function srvPoll(){
+    if (!S.srv) return;
+    api("/api/sync?room=" + encodeURIComponent(S.srv.room) + "&n=" + S.srv.applied)
+      .then(function(j){
+        if (!S.srv) return;
+        if (j.codes && j.codes.length) applyIncoming(j.codes);
+        S.srvMsg = j.seats && j.seats[1] && j.seats[2] ? "" : "相手の参加を待っています。";
+        render(null);
+      })
+      .catch(function(){ S.srvMsg = "通信が途切れました。再接続してください。"; render(null); })
+      .then(function(){ if (S.srv) setTimeout(srvPoll, 1500); });
+  }
+  function srvSend(code){
+    if (!S.srv) return;
+    api("/api/move", {method:"POST", headers:{"content-type":"application/json"},
+      body: JSON.stringify({room:S.srv.room, color:S.srv.color, token:S.srv.token, code:code})})
+      .then(function(j){ if (S.srv) S.srv.applied = j.n; })
+      .catch(function(){ S.srvMsg = "送信できませんでした。"; render(null); });
+  }
+  function srvInviteURL(){
+    if (!S.srv) return "";
+    return location.origin + location.pathname + "?room=" + encodeURIComponent(S.srv.room);
+  }
+  function srvLeave(){
+    S.srv = null; S.net = 0; S.srvMsg = "切断しました。";
+    ["netOff","netB","netA"].forEach(function(id,k){
+      document.getElementById(id).setAttribute("aria-pressed", String(k===0));
+    });
+    reset();
+  }
+
+  function doAction(a){
+    S.stack.push({P:clone(S.P), log:S.log.slice(), seen:Object.assign({}, S.seen),
+                  lastMove:S.lastMove, capInfo:S.capInfo, pts:S.pts.slice(),
+                  round:S.round, first:S.first, placeKing:S.placeKing,
+                  drawStreak:S.drawStreak, drawCause:S.drawCause.slice()});
+    var actor = S.P.cap ? S.P.cap : S.P.turn;
+    var r = apply(S.P, a);
+    if (a.t === "p"){ S.log.push({txt:POINTS[a.i] + (a.king ? "王" : ""), pl:actor}); S.lastMove = {to:POINTS[a.i]}; }
+    else if (a.t === "m"){ S.log.push({txt:POINTS[a.i] + "→" + POINTS[a.j], pl:actor}); S.lastMove = {from:POINTS[a.i], to:POINTS[a.j]}; }
+    else { var last = S.log[S.log.length-1]; if (last) { last.txt += " 取" + POINTS[a.i]; last.cap = true; } }
+    S.P = r.P; S.pick = null; S.placeKing = false;
+    S.ply += 1;
+    S.lastCode = S.round + "." + S.ply + "." + encAction(a).toUpperCase();
+    if (S.srv && actor === S.srv.color && !S.srvApplying) srvSend(S.lastCode);
+    if (S.link && !S.linkReplaying && S.codes.indexOf(S.lastCode) < 0){ S.codes.push(S.lastCode); linkSave(); }
+    if (S.auto && !S.linkReplaying && S.codes.indexOf(S.lastCode) < 0){ S.codes.push(S.lastCode); S.autoDirty = true; }
+    if (S.room && !S.linkReplaying && S.codes.indexOf(S.lastCode) < 0){ S.codes.push(S.lastCode); S.roomDirty = true; }
+    if (r.ev && r.ev.trigger) S.capInfo = {by:r.ev.trigger.by, at:null};
+    else if (r.ev && r.ev.cap) S.capInfo = {by:r.ev.cap.by, at:POINTS[r.ev.cap.at]};
+    else if (a.t !== "x") S.capInfo = null;
+    S.end = r.end;
+    if (!S.end && !S.P.cap){
+      var k = posKey(S.P);
+      S.seen[k] = (S.seen[k]||0) + 1;
+      if (S.seen[k] >= 3) S.end = {scorer:0, p:0, name:"千日手", draw:true, causer:actor,
+        text:"千日手（回転して同じ形も含む）。得点なしで攻守交代します", pts:[], shape:"line"};
+    }
+    if (S.end && S.end.matchLoss){
+      S.matchOver = S.end.scorer;              // 早三星は得点と無関係にその場で負け
+      S.matchNote = NAME[S.end.fouler] + "の早三星";
+    } else if (S.end && S.end.draw){
+      S.drawStreak += 1;
+      if (S.end.causer) S.drawCause[S.end.causer] += 1;
+      if (S.drawStreak >= DRAW_LIMIT){
+        // 千日手を多く起こした側の負け。同数なら第1ラウンドの先攻が負け
+        var loser = S.drawCause[1] > S.drawCause[2] ? 1
+                  : (S.drawCause[2] > S.drawCause[1] ? 2 : 1);
+        S.matchOver = loser === 1 ? 2 : 1;
+        S.matchNote = "引き分け" + DRAW_LIMIT + "連続。千日手を起こした回数 黒" +
+          S.drawCause[1] + "・青" + S.drawCause[2] +
+          (S.drawCause[1] === S.drawCause[2] ? "（同数のため第1ラウンドの先攻 " + NAME[S.first0] + " の負け）" : "");
+        S.end.matchLoss = true;
+      }
+    } else if (S.end && S.end.scorer){
+      S.drawStreak = 0; S.drawCause = [0,0,0];
+      S.pts[S.end.scorer] += S.end.p;
+      if (S.pts[S.end.scorer] >= GOAL){ S.matchOver = S.end.scorer; S.matchNote = S.pts[S.end.scorer] + "点に到達"; }
+    }
+    render(a.t === "m" ? POINTS[a.j] : (a.t === "p" ? POINTS[a.i] : null));
+    if ((S.srv || S.link || S.auto || S.room) && S.end && !S.matchOver && !S.linkReplaying)
+      setTimeout(function(){ if (S.end && !S.matchOver) { nextRound(); linkSave(); } }, 1600);
+    if (S.autoDirty){ S.autoDirty = false; autoPush(); }
+    if (S.roomDirty){ S.roomDirty = false; roomSend({t:"move", c:S.lastCode}); }
+    if (!S.end && !humanTurn()) setTimeout(cpuMove, 260);
+  }
+
+  // 次のラウンドへ（攻守交代）
+  function nextRound(){
+    if (S.matchOver) return;
+    S.first = S.first === 1 ? 2 : 1;
+    S.round += 1;
+    S.P = newPos(S.first);
+    S.stack = []; S.log = []; S.end = null; S.pick = null; S.seen = {};
+    S.lastMove = null; S.capInfo = null; S.placeKing = false;
+    S.ply = 0; S.lastCode = ""; S.netMsg = "";
+    render(null);
+    if (!humanTurn()) setTimeout(cpuMove, 400);
+  }
+
+  function cpuMove(){
+    if (S.net || S.auto || S.room || S.gate || S.autoPending) return;   // 通信対戦では相手の手を勝手に指さない
+    if (S.end || humanTurn()) return;
+    var a = pickAction(S.P, S.level === 2 ? 6 : 3, S.level === 2 ? 1200 : 350);
+    if (a) doAction(a);
+  }
+
+  /* ===== 盤の描画 ===== */
+  var svg = document.getElementById("board"), NS = "http://www.w3.org/2000/svg";
+  var M = 78, STEP = 106;
+  function px(id){ return M + (Number(id[1]) - 1) * STEP; }
+  function py(id){ return M + (5 - ROWS[id[0]]) * STEP; }
+  function el(n, at){ var e = document.createElementNS(NS, n); for (var k in at) e.setAttribute(k, at[k]); return e; }
+  var spotEls = {}, stoneL, markL, targetL, trailL, rayL, lastRing;
+
+  function buildBoard(){
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var innerPairs = {};
+    INNER_SIDES.forEach(function(s){
+      innerPairs[s[0]+"-"+s[1]]=1; innerPairs[s[1]+"-"+s[0]]=1;
+      innerPairs[s[1]+"-"+s[2]]=1; innerPairs[s[2]+"-"+s[1]]=1;
+    });
+    var g = el("g", {});
+    EDGES.forEach(function(e){
+      g.appendChild(el("line", {x1:px(e[0]), y1:py(e[0]), x2:px(e[1]), y2:py(e[1]),
+        "class":"grid-line" + (innerPairs[e[0]+"-"+e[1]] ? " inner" : "")}));
+    });
+    svg.appendChild(g);
+    var lab = el("g", {});
+    [1,2,3,4,5].forEach(function(c){ var t=el("text",{x:M+(c-1)*STEP,y:566,"class":"coord","text-anchor":"middle"}); t.textContent=String(c); lab.appendChild(t); });
+    ["A","B","C","D","E"].forEach(function(r){ var t=el("text",{x:26,y:M+(5-ROWS[r])*STEP+8,"class":"coord","text-anchor":"middle"}); t.textContent=r; lab.appendChild(t); });
+    svg.appendChild(lab);
+    var xg = el("g",{id:"xsqGroup"});
+    XPTS.forEach(function(p){
+      xg.appendChild(el("circle",{cx:px(p), cy:py(p), r:34, "class":"xmark"}));
+    });
+    svg.appendChild(xg);
+    markL = el("g",{}); svg.appendChild(markL);
+    trailL = el("g",{}); svg.appendChild(trailL);
+    rayL = el("g",{}); svg.appendChild(rayL);
+    stoneL = el("g",{}); svg.appendChild(stoneL);
+    var hit = el("g",{});
+    POINTS.forEach(function(p){
+      var c = el("circle",{cx:px(p),cy:py(p),r:26,"class":"spot",tabindex:"0",role:"button","aria-label":p});
+      c.addEventListener("click", function(){ tap(p); });
+      c.addEventListener("keydown", function(ev){ if(ev.key==="Enter"||ev.key===" "){ ev.preventDefault(); tap(p);} });
+      spotEls[p]=c; hit.appendChild(c);
+    });
+    svg.appendChild(hit);
+    var hints = el("g",{});
+    POINTS.forEach(function(p){ hints.appendChild(el("circle",{cx:px(p),cy:py(p),r:4,"class":"hint","data-hint":p})); });
+    svg.appendChild(hints);
+    targetL = el("g",{}); svg.appendChild(targetL);
+    lastRing = el("circle",{r:34,"class":"last-ring",opacity:0}); svg.appendChild(lastRing);
+  }
+
+  function occAt(p){ var i=IX[p]; return ((S.P.m[1]>>i)&1) ? 1 : (((S.P.m[2]>>i)&1) ? 2 : 0); }
+  function destPts(p){ return destsOf(IX[p], S.P.m[1]|S.P.m[2]).map(function(j){ return POINTS[j]; }); }
+
+  function tap(p){
+    if (!humanTurn()) return;
+    var i = IX[p], who = occAt(p);
+    if (S.P.cap){
+      if (who === (S.P.cap === 1 ? 2 : 1)) doAction({t:"x", i:i});   // 取るのは相手の駒
+      return;
+    }
+    var me = S.P.turn;
+    if (who === me){ S.pick = (S.pick === p) ? null : p; return render(null); }
+    if (who !== 0){ S.pick = null; return render(null); }
+    if (S.pick){
+      if (destPts(S.pick).indexOf(p) >= 0) return doAction({t:"m", i:IX[S.pick], j:i});
+      S.pick = null; return render(null);
+    }
+    if (S.P.h[me] > 0){
+      var mustKing = (S.P.kh[me] === 1 && S.P.h[me] === 1);
+      var asKing = (S.P.kh[me] === 1 && (S.placeKing || mustKing)) ? 1 : 0;
+      doAction({t:"p", i:i, king:asKing});
+    }
+  }
+
+  function undo(){
+    if (!S.stack.length) return;
+    var st;
+    do {
+      st = S.stack.pop();
+      S.P = st.P; S.log = st.log; S.seen = st.seen; S.lastMove = st.lastMove; S.capInfo = st.capInfo;
+      S.pts = st.pts; S.round = st.round; S.first = st.first; S.placeKing = st.placeKing;
+      S.drawStreak = st.drawStreak; S.drawCause = st.drawCause;
+      S.end = null; S.pick = null; S.matchOver = null; S.matchNote = "";
+    } while (S.stack.length && !humanTurn());
+    render(null);
+  }
+  // 対局そのものをやり直す
+  function reset(){
+    S.pts=[0,0,0]; S.round=1; S.first=1; S.first0=1; S.matchOver=null;
+    S.drawStreak=0; S.drawCause=[0,0,0]; S.matchNote="";
+    S.P = newPos(1); S.stack=[]; S.log=[]; S.end=null; S.pick=null; S.seen={};
+    S.lastMove=null; S.capInfo=null; S.placeKing=false;
+    S.ply=0; S.lastCode=""; S.netMsg="";
+    render(null); if(!humanTurn()) setTimeout(cpuMove,300);
+  }
+
+  /* ===== 描画 ===== */
+  function render(justAt){
+    var over = !!S.end, P = S.P;
+    var picking = !over && P.cap;
+    var dests = (!over && !picking && S.pick) ? destPts(S.pick) : [];
+    var risks = (!over && !picking) ? drawRiskMoves() : [];
+    var riskTo = risks.filter(function(r){ return r.from === S.pick; }).map(function(r){ return r.to; });
+    var canPlace = !over && !picking && P.h[P.turn] > 0;
+    var vic = picking ? (P.cap === 1 ? 2 : 1) : 0;
+
+    while (stoneL.firstChild) stoneL.removeChild(stoneL.firstChild);
+    while (targetL.firstChild) targetL.removeChild(targetL.firstChild);
+    POINTS.forEach(function(p){
+      var v = occAt(p), spot = spotEls[p], empty = v === 0, clickable;
+      if (over || !humanTurn()) clickable = false;
+      else if (picking) clickable = (v === vic);
+      else if (empty) clickable = canPlace || dests.indexOf(p) >= 0 || !!S.pick;
+      else clickable = (v === P.turn && destPts(p).length > 0);
+      spot.classList.toggle("clickable", !!clickable);
+      spot.style.pointerEvents = clickable ? "all" : "none";
+      spot.setAttribute("aria-label", p + (empty ? " 空点" : (v===1 ? " 黒の駒" : " 青の駒")));
+      spot.style.opacity = empty ? 1 : 0;
+      document.querySelector('[data-hint="'+p+'"]').style.opacity = empty ? "" : "0";
+      if (empty){
+        if (dests.indexOf(p) >= 0)
+          targetL.appendChild(el("circle",{cx:px(p),cy:py(p),r:11,
+            "class":"target" + (riskTo.indexOf(p) >= 0 ? " draw" : "")}));
+        return;
+      }
+      var cls = "stone p" + v;
+      if (p === S.pick) cls += " pick";
+      if (picking && v === vic) cls += " prey";
+      if (p === justAt) cls += " drop";
+      var gg = el("g",{"class":cls});
+      gg.style.transformOrigin = px(p)+"px "+py(p)+"px";
+      gg.appendChild(el("circle",{cx:px(p),cy:py(p),r:26}));
+      if (P.k[v] === (1<<IX[p])) gg.appendChild(el("circle",{cx:px(p),cy:py(p),r:10,"class":"crown"}));
+      stoneL.appendChild(gg);
+    });
+
+    // 選択した駒から、どの方向にどこまで届くか。塞いでいる駒には赤い輪を付ける
+    while (rayL.firstChild) rayL.removeChild(rayL.firstChild);
+    if (!over && !picking && S.pick){
+      var pi = IX[S.pick], occ = P.m[1]|P.m[2];
+      RAYS[pi].forEach(function(ray){
+        var last = -1, blocker = -1, k;
+        for (k=0;k<ray.length;k++){
+          if ((occ>>ray[k])&1){ blocker = ray[k]; break; }
+          last = ray[k];
+          if (mode === "step") break;
+        }
+        if (mode === "step" && blocker < 0 && ray.length > 1) blocker = -1;
+        if (last >= 0)
+          rayL.appendChild(el("line", {x1:px(S.pick), y1:py(S.pick),
+            x2:px(POINTS[last]), y2:py(POINTS[last]), "class":"ray"}));
+        if (blocker >= 0)
+          rayL.appendChild(el("circle", {cx:px(POINTS[blocker]), cy:py(POINTS[blocker]),
+            r:31, "class":"blocker"}));
+      });
+      jumpDests(pi, occ).forEach(function(j){
+        rayL.appendChild(el("line", {x1:px(S.pick), y1:py(S.pick),
+          x2:px(POINTS[j]), y2:py(POINTS[j]), "class":"ray jump"}));
+      });
+    }
+
+    while (trailL.firstChild) trailL.removeChild(trailL.firstChild);
+    if (S.lastMove && S.lastMove.from)
+      trailL.appendChild(el("line",{x1:px(S.lastMove.from),y1:py(S.lastMove.from),
+        x2:px(S.lastMove.to),y2:py(S.lastMove.to),"class":"trail"}));
+
+    while (markL.firstChild) markL.removeChild(markL.firstChild);
+    function ring(pts, cls){
+      var ord = pts.slice().sort(function(a,b){ return Math.atan2(py(a)-290,px(a)-290)-Math.atan2(py(b)-290,px(b)-290); });
+      markL.appendChild(el("path",{d:ord.map(function(p,i){return (i?"L":"M")+px(p)+" "+py(p);}).join(" ")+" Z","class":"mark-line "+cls}));
+    }
+    if (S.capInfo && S.capInfo.at){
+      var cp = S.capInfo.at;
+      markL.appendChild(el("path",{d:"M"+(px(cp)-15)+" "+(py(cp)-15)+"L"+(px(cp)+15)+" "+(py(cp)+15)+
+        "M"+(px(cp)+15)+" "+(py(cp)-15)+"L"+(px(cp)-15)+" "+(py(cp)+15),"class":"mark-line cap"}));
+    }
+    if (over && S.end.pts && S.end.pts.length){
+      var cls2 = S.end.kind === "lose" ? "lose" : "win";
+      if (S.end.shape === "square") ring(S.end.pts, cls2);
+      else {
+        var s2 = S.end.pts.slice().sort(function(a,b){ return (px(a)-px(b))||(py(a)-py(b)); });
+        markL.appendChild(el("line",{x1:px(s2[0]),y1:py(s2[0]),x2:px(s2[s2.length-1]),y2:py(s2[s2.length-1]),"class":"mark-line "+cls2}));
+      }
+    }
+    var lp = S.lastMove ? S.lastMove.to : null;
+    if (lp && !over){ lastRing.setAttribute("cx",px(lp)); lastRing.setAttribute("cy",py(lp)); lastRing.setAttribute("opacity",1); }
+    else lastRing.setAttribute("opacity",0);
+
+    var xg2 = document.getElementById("xsqGroup");
+    if (xg2){
+      xg2.style.display = RULES.chuShiho ? "" : "none";
+      var lit = !over && !!S.capInfo;
+      Array.prototype.forEach.call(xg2.childNodes, function(n){ n.setAttribute("class", "xmark" + (lit ? " on" : "")); });
+    }
+    // 早三星が生きている間だけ、内側の辺を赤で示す
+    svg.classList.toggle("foul-live",
+      !over && RULES.hayaSanzei && (P.h[1] > 0 || P.h[2] > 0));
+
+    var al = document.getElementById("alert"), alt = document.getElementById("alertText");
+    var lines = [];
+    if (!over && !S.matchOver){
+      var rep = seenCount();
+      if (S.drawStreak > 0)
+        lines.push("引き分け " + S.drawStreak + " / " + DRAW_LIMIT +
+                   "（千日手を起こした回数　黒 " + S.drawCause[1] + "・青 " + S.drawCause[2] + "）");
+      if (rep >= 2) lines.push("いまの形はすでに " + rep + " 回目です。もう一度現れると千日手になります。");
+      if (risks.length) lines.push("この手番で千日手になる指し手が " + risks.length +
+                                   " 通りあります。駒を選ぶと紫の点で示します。");
+      if (S.drawStreak >= DRAW_LIMIT - 2)
+        lines.push("あと " + (DRAW_LIMIT - S.drawStreak) + " 回の引き分けで打切です。いまの集計なら " +
+                   NAME[cutoffLoser()] + " の負けになります。");
+    }
+    al.style.display = lines.length ? "" : "none";
+    al.className = "card alertbar" + (S.drawStreak >= DRAW_LIMIT - 2 ? " hot" : "");
+    alt.innerHTML = "";
+    lines.forEach(function(t){ var d=document.createElement("div"); d.textContent = t; alt.appendChild(d); });
+
+    var warn = document.getElementById("warn");
+    if (over){ warn.className="card warnbar"; warn.textContent="対局終了。"; }
+    else if (!RULES.hayaSanzei){ warn.className="card warnbar";
+      warn.textContent="早三星は無効です。内側の辺（破線）はいつ揃えても得点になります。"; }
+    else if (P.h[1] || P.h[2]){ warn.className="card warnbar live";
+      warn.textContent="盤外に駒が残っています。いま内側の辺（破線）を揃えると早三星で、得点に関係なく負けです。"; }
+    else { warn.className="card warnbar";
+      warn.textContent="8個すべてが盤上に出ました。内側の辺（破線）は内三星として得点になります。"; }
+
+    var box=document.getElementById("turn"), sw=document.getElementById("turnSwatch");
+    var who=document.getElementById("turnWho"), note=document.getElementById("turnNote");
+    box.classList.remove("win","lose","cap");
+    if (S.matchOver){
+      var foul = S.end && S.end.matchLoss;
+      box.classList.add(foul ? "lose" : "win");
+      who.textContent = (foul && S.end.fouler)
+        ? NAME[S.end.fouler] + "の反則負け"
+        : NAME[S.matchOver] + "の勝ち";
+      note.textContent = S.matchNote || (S.end ? S.end.text : "");
+      sw.className = "swatch s" + S.matchOver;
+    } else if (over){
+      if (!S.end.scorer){ who.textContent = "得点なし"; sw.className="swatch s1"; }
+      else {
+        box.classList.add(S.end.foul ? "lose" : "win");
+        who.textContent = NAME[S.end.scorer] + "が " + S.end.p + "点";
+        sw.className = "swatch s" + S.end.scorer;
+      }
+      note.textContent = S.end.text;
+    } else if (picking){
+      box.classList.add("cap");
+      who.textContent = NAME[P.cap] + "が没収します";
+      note.textContent = humanTurn() ? "取る相手の駒をタップしてください。王を取れば王奪で1点" : "相手が選んでいます…";
+      sw.className = "swatch s" + P.cap;
+    } else {
+      who.textContent = NAME[P.turn] + "の番" +
+        (humanTurn() ? "" : (S.net ? "（相手の手を待っています）" : "（考え中…）"));
+      note.textContent = S.pick ? "金の点へ動かします（もう一度押すと選び直し）"
+                                : (canPlace ? "空点をタップで置く／自分の駒をタップで動かす" : "動かす自分の駒をタップします");
+      sw.className = "swatch s" + P.turn;
+    }
+
+    [1,2].forEach(function(pl){
+      var pips=document.getElementById("pips"+pl); pips.innerHTML="";
+      for (var i=0;i<4;i++){
+        var d=document.createElement("span");
+        d.className="pip a"+pl+(i<P.h[pl]?"":" used");
+        if (P.kh[pl] === 1 && i === P.h[pl]-1) d.className += " kingpip";
+        pips.appendChild(d);
+      }
+      var lost = 4 - tot(P, pl);
+      var cnt=document.getElementById("count"+pl);
+      cnt.textContent = P.h[pl] + (lost ? "　-" + lost : "");
+      cnt.classList.toggle("danger", lost>0);
+      document.getElementById("hand"+pl).classList.toggle("active", !over && !picking && P.turn===pl);
+      document.getElementById("score"+pl).textContent = S.pts[pl];
+      document.getElementById("bar"+pl).style.width = Math.min(100, S.pts[pl]/GOAL*100) + "%";
+    });
+    document.getElementById("roundNo").textContent =
+      "第" + S.round + "ラウンド　先攻 " + NAME[S.first] +
+      (S.drawStreak ? "　引分" + S.drawStreak + "/" + DRAW_LIMIT : "");
+
+    // 王を置くトグル
+    var kb = document.getElementById("kingBtn"), cur = P.turn;
+    var canChoose = !over && !picking && P.kh[cur] === 1 && P.h[cur] > 1 && humanTurn();
+    var forced = !over && !picking && P.kh[cur] === 1 && P.h[cur] === 1;
+    kb.style.display = (!over && !picking && P.kh[cur] === 1) ? "" : "none";
+    kb.disabled = !canChoose;
+    kb.setAttribute("aria-pressed", String(forced || S.placeKing));
+    kb.textContent = forced ? "次は王しか置けません" : (S.placeKing ? "次に王を置く" : "次は普通の駒を置く");
+
+    // 合言葉対戦
+    var rc = document.getElementById("roomcard");
+    rc.style.display = S.room ? "" : "none";
+    if (S.room){
+      document.getElementById("roomState").textContent =
+        S.watch ? "席が2つとも埋まっています。観戦中です"
+        : !S.net ? "相手を待っています。同じ合言葉を入れてもらってください"
+        : S.matchOver ? "対局終了"
+        : over ? "得点が入りました。まもなく次のラウンドへ進みます"
+        : humanTurn() ? "あなた（" + NAME[S.net] + "）の番です"
+          + (R.seats.length < 2 ? "。相手はまだ来ていません" : "")
+        : "相手（" + NAME[3 - S.net] + "）の手を待っています";
+      document.getElementById("roomWord").textContent = R.word || "—";
+      var rm = document.getElementById("roomMsg");
+      rm.textContent = S.roomMsg || "";
+      rm.style.display = S.roomMsg ? "" : "none";
+    }
+
+    // オンライン対戦（自動同期）
+    var ac = document.getElementById("autocard");
+    ac.style.display = (S.auto || S.autoPending || S.autoOff) ? "" : "none";
+    if (ac.style.display === ""){
+      document.getElementById("autoState").textContent =
+        S.autoPending ? "つないでいます…"
+        : S.autoOff ? "この画面では自動同期が使えません。下のリンク対戦をお使いください"
+        : S.watch ? "席が2つとも埋まっています。観戦中です"
+        : S.matchOver ? "対局終了"
+        : S.autoBusy ? "手を送っています…"
+        : over ? "得点が入りました。まもなく次のラウンドへ進みます"
+        : humanTurn() ? "あなた（" + NAME[S.net] + "）の番です"
+        : "相手（" + NAME[3 - S.net] + "）の手を待っています";
+      document.getElementById("autoShareBox").style.display =
+        (S.auto && !S.watch && !S.autoRO) ? "" : "none";
+      document.getElementById("autoCtl").style.display = S.auto ? "" : "none";
+      var am = document.getElementById("autoMsg");
+      am.textContent = S.autoMsg || "";
+      am.style.display = S.autoMsg ? "" : "none";
+    }
+
+    // リンク対戦
+    var lc = document.getElementById("linkcard");
+    var canLink = location.protocol === "http:" || location.protocol === "https:";
+    lc.style.display = (canLink && !S.srv && !S.auto && !S.room && !S.autoPending) ? "" : "none";
+    if (lc.style.display === ""){
+      document.getElementById("linkStartBox").style.display = S.link ? "none" : "";
+      document.getElementById("linkLiveBox").style.display = (S.link && linkURL()) ? "" : "none";
+      if (S.link && linkURL()) document.getElementById("linkURL").textContent = linkURL();
+      var lm = document.getElementById("linkMsg");
+      var txt = S.linkMsg || (S.link && !linkURL() && !humanTurn() ? "相手のリンクを待っています。" : "");
+      lm.textContent = txt; lm.style.display = txt ? "" : "none";
+    }
+
+    // サーバー対戦
+    var sc = document.getElementById("srvcard");
+    var online = location.protocol === "http:" || location.protocol === "https:";
+    sc.style.display = (online && !S.link && !S.auto && !S.room && !S.autoPending) ? "" : "none";
+    if (online){
+      document.getElementById("srvJoinBox").style.display = S.srv ? "none" : "";
+      document.getElementById("srvLiveBox").style.display = S.srv ? "" : "none";
+      if (S.srv){
+        document.getElementById("srvInfo").textContent =
+          "合言葉「" + S.srv.room + "」　あなたは " + NAME[S.srv.color];
+        document.getElementById("srvLink").textContent = srvInviteURL();
+      }
+      var sm = document.getElementById("srvMsg");
+      sm.textContent = S.srvMsg || "";
+      sm.style.display = S.srvMsg ? "" : "none";
+    }
+
+    // 通信対戦（コード交換）
+    var nc = document.getElementById("netcard");
+    nc.style.display = (!S.srv && !S.link && !S.autoPending && (!S.room || S.roomErr)) ? "" : "none";
+    if (nc.style.display === ""){
+      var myTurn = S.net ? humanTurn() : false;
+      var waiting = !S.net || (!over && !S.matchOver && !myTurn);
+      document.getElementById("netSend").style.display =
+        (S.net && S.lastCode && (!S.auto || S.autoRO || S.roomErr)) ? "" : "none";
+      document.getElementById("netCode").textContent = S.lastCode || "—";
+      document.getElementById("netRecv").style.display =
+        (S.auto ? !S.autoRO : waiting) ? "" : "none";
+      document.getElementById("netStartBox").style.display =
+        (S.net || S.auto || S.room) ? "none" : "";
+      document.getElementById("netState").textContent =
+        S.roomErr ? "中継が使えないので、下のコードを送り合ってください"
+        : S.auto ? (S.autoRO
+            ? "自動で送れないので、下のコードを相手に送ってください"
+            : "相手の手が届かないときは、相手からコードをもらってここに貼ってください")
+        : !S.net ? "友達と遊ぶには、相手のコードを貼るか、自分から始めてください"
+        : S.matchOver ? "対局終了"
+        : over ? "得点が入りました。両方で「次のラウンドへ」を押してください"
+        : myTurn ? "あなた（" + NAME[S.net] + "）の番です"
+        : "相手（" + NAME[3 - S.net] + "）の手を待っています";
+      var nm = document.getElementById("netMsg");
+      nm.textContent = S.netMsg || "";
+      nm.style.display = S.netMsg ? "" : "none";
+    }
+
+    var nb = document.getElementById("nextRound");
+    nb.style.display = (over && !S.matchOver) ? "" : "none";
+    var acts = document.getElementById("acts");
+    acts.style.display = (nb.style.display === "none" && kb.style.display === "none") ? "none" : "";
+
+    var ol=document.getElementById("moves"); ol.innerHTML="";
+    S.log.forEach(function(m,i){
+      var li=document.createElement("li"); var dot=document.createElement("span");
+      dot.className="dot d"+m.pl; li.appendChild(dot);
+      li.appendChild(document.createTextNode((i+1)+". "+m.txt));
+      if (m.cap) li.classList.add("cap");
+      ol.appendChild(li);
+    });
+    document.getElementById("movesEmpty").style.display = S.log.length ? "none" : "";
+    document.getElementById("undo").disabled = !S.stack.length;
+  }
+
+  /* ===== 設定 ===== */
+  var MODE_WHY = {
+    step:  "線に沿って、隣の空いている交点へ1つだけ動かします。",
+    slide: "線に沿って、駒か盤端に当たるまで進みます。途中では止まれません。",
+    free:  "線に沿って、駒に当たるまでの好きな交点へ動かします。1つでも端まででも構いません。"
+  };
+  /* ===== 設定の保存 ===== */
+  var SKEY = "jusanboshi.settings.v1";
+  function saveSettings(){
+    try {
+      localStorage.setItem(SKEY, JSON.stringify({R:RULES, cpu:S.cpu, level:S.level}));
+    } catch(e){}
+  }
+  function loadSettings(){
+    try {
+      var v = JSON.parse(localStorage.getItem(SKEY) || "null");
+      if (!v) return false;
+      if (v.R) for (var k in RULES) if (k in v.R) RULES[k] = v.R[k];
+      if (typeof v.cpu === "number") S.cpu = v.cpu;
+      if (typeof v.level === "number") S.level = v.level;
+      return true;
+    } catch(e){ return false; }
+  }
+
+  var TOGGLES = [
+    {k:"sotoSanzei", name:"外三星",  why:"実線の三点線6本に3つ　2点／真ん中が王なら三王星4点"},
+    {k:"uchiSanzei", name:"内三星",  why:"破線の三点線4本に3つ　2点／真ん中が王なら三王星4点"},
+    {k:"shiren",     name:"四連",    why:"五点線で連続4つ　3点／内側2つに王なら四連王列5点"},
+    {k:"shihoIn",    name:"四方（内）", why:"A3 C1 C5 E3 の4頂点　3点"},
+    {k:"shihoSoto",  name:"四方（外）", why:"A1 A5 E1 E5 の4頂点　3点"},
+    {k:"hayaSanzei", name:"早三星",  why:"盤外に駒が残っているうちに破線を揃えたら、得点に関係なくその場で負け"},
+    {k:"chuShiho",   name:"中四方",  why:"B2 B4 D2 D4 を占めて相手の駒を1つ取る。王なら王奪1点"},
+    {k:"kadoWatari", name:"角渡り",  why:"対角の角どうし（A1↔E5、A5↔E1）は間の駒を越える"}
+  ];
+  function buildToggles(){
+    var ul = document.getElementById("ruleToggles");
+    ul.innerHTML = "";
+    TOGGLES.forEach(function(t){
+      var li = document.createElement("li");
+      var txt = document.createElement("div");
+      txt.className = "rt-text";
+      txt.innerHTML = '<span class="rt-name"></span><span class="rt-why"></span>';
+      txt.querySelector(".rt-name").textContent = t.name;
+      txt.querySelector(".rt-why").textContent = t.why;
+      var btn = document.createElement("button");
+      btn.type = "button"; btn.className = "rt-btn"; btn.dataset.k = t.k;
+      btn.addEventListener("click", function(){
+        RULES[t.k] = !RULES[t.k];
+        applyRules(); syncToggles(); saveSettings(); reset();
+        if (S.auto) autoPushRules();
+      });
+      li.appendChild(txt); li.appendChild(btn);
+      ul.appendChild(li);
+    });
+    syncToggles();
+  }
+  function syncToggles(){
+    Array.prototype.forEach.call(document.querySelectorAll(".rt-btn"), function(b){
+      var on = !!RULES[b.dataset.k];
+      b.setAttribute("aria-pressed", String(on));
+      b.textContent = on ? "有効" : "無効";
+    });
+    var n = TOGGLES.filter(function(t){
+      return t.k!=="hayaSanzei" && t.k!=="chuShiho" && t.k!=="kadoWatari" && RULES[t.k]; }).length;
+    document.getElementById("ruleWhy").textContent =
+      n === 0 ? "得点できる役がありません。少なくとも1つ有効にしてください。"
+              : "得点できる役は " + n + " 種類です。設定を変えると対局が最初からになります。";
+  }
+  function usePreset(){
+    for (var k in PRESET) RULES[k] = PRESET[k];
+    applyRules(); syncToggles(); setMode(RULES.mode); saveSettings(); reset();
+    if (S.auto) autoPushRules();
+  }
+
+  function setMode(m){
+    mode = m; RULES.mode = m; saveSettings();
+    document.getElementById("modeStep").setAttribute("aria-pressed", String(m==="step"));
+    document.getElementById("modeSlide").setAttribute("aria-pressed", String(m==="slide"));
+    document.getElementById("modeFree").setAttribute("aria-pressed", String(m==="free"));
+    document.getElementById("modeWhy").textContent = MODE_WHY[m];
+    S.pick=null; render(null);
+  }
+  function setCpu(v){
+    S.cpu = v; saveSettings();
+    ["cpuOff","cpu2","cpu1"].forEach(function(id,k){
+      document.getElementById(id).setAttribute("aria-pressed", String([0,2,1][k]===v));
+    });
+    reset();
+  }
+  function setLevel(v){
+    S.level=v; saveSettings();
+    document.getElementById("lv1").setAttribute("aria-pressed", String(v===1));
+    document.getElementById("lv2").setAttribute("aria-pressed", String(v===2));
+  }
+
+  document.getElementById("undo").addEventListener("click", undo);
+  document.getElementById("reset").addEventListener("click", reset);
+  document.getElementById("modeStep").addEventListener("click", function(){ setMode("step"); if (S.auto) autoPushRules(); });
+  document.getElementById("modeSlide").addEventListener("click", function(){ setMode("slide"); if (S.auto) autoPushRules(); });
+  document.getElementById("modeFree").addEventListener("click", function(){ setMode("free"); if (S.auto) autoPushRules(); });
+  document.getElementById("cpuOff").addEventListener("click", function(){ setCpu(0); });
+  document.getElementById("cpu2").addEventListener("click", function(){ setCpu(2); });
+  document.getElementById("cpu1").addEventListener("click", function(){ setCpu(1); });
+  document.getElementById("lv1").addEventListener("click", function(){ setLevel(1); });
+  document.getElementById("lv2").addEventListener("click", function(){ setLevel(2); });
+
+  document.getElementById("preset").addEventListener("click", usePreset);
+  document.getElementById("nextRound").addEventListener("click", nextRound);
+  function setNet(v){
+    S.net = v;
+    ["netOff","netB","netA"].forEach(function(id,k){
+      document.getElementById(id).setAttribute("aria-pressed", String([0,1,2][k] === v));
+    });
+    if (v){ S.cpu = 0; setCpu(0); }
+    saveSettings(); reset();
+  }
+  document.getElementById("linkNew").addEventListener("click", linkStart);
+  document.getElementById("linkShare").addEventListener("click", function(){
+    var u = linkURL(); if (!u) return;
+    if (navigator.share) navigator.share({text:"十三星の盤　あなたの番です", url:u})
+      .then(function(){ S.linkMsg = "送信アプリを開きました。"; render(null); }, function(){});
+    else if (navigator.clipboard) navigator.clipboard.writeText(u)
+      .then(function(){ S.linkMsg = "リンクをコピーしました。"; render(null); }, function(){});
+  });
+  document.getElementById("linkCopy").addEventListener("click", function(){
+    var u = linkURL(); if (!u) return;
+    if (navigator.clipboard) navigator.clipboard.writeText(u)
+      .then(function(){ S.linkMsg = "リンクをコピーしました。"; render(null); },
+            function(){ S.linkMsg = "長押しで選択してコピーしてください。"; render(null); });
+  });
+  document.getElementById("linkQuit").addEventListener("click", function(){
+    S.link = null; S.codes = []; S.net = 0; S.linkMsg = "";
+    try { location.hash = ""; } catch(e){}
+    ["netOff","netB","netA"].forEach(function(id,k){
+      document.getElementById(id).setAttribute("aria-pressed", String(k===0)); });
+    reset();
+  });
+  document.getElementById("srvInvite").addEventListener("click", function(){
+    var u = srvInviteURL(); if (!u) return;
+    if (navigator.share) navigator.share({text:"十三星の盤で対戦しよう", url:u})
+      .then(function(){ S.srvMsg = "招待を送りました。"; render(null); }, function(){});
+    else if (navigator.clipboard) navigator.clipboard.writeText(u)
+      .then(function(){ S.srvMsg = "招待リンクをコピーしました。"; render(null); }, function(){});
+  });
+  document.getElementById("srvJoin").addEventListener("click", srvJoin);
+  document.getElementById("srvLeave").addEventListener("click", srvLeave);
+  document.getElementById("srvNew").addEventListener("click", function(){
+    if (!S.srv) return;
+    api("/api/reset", {method:"POST", headers:{"content-type":"application/json"},
+      body: JSON.stringify({room:S.srv.room, token:S.srv.token})})
+      .then(function(){ var c = S.srv; reset(); S.srv = c; S.srv.applied = 0; S.net = c.color;
+                        S.srvMsg = "新しい対局を始めました。"; render(null); })
+      .catch(function(){ S.srvMsg = "やり直しに失敗しました。"; render(null); });
+  });
+  document.getElementById("netOff").addEventListener("click", function(){ setNet(0); });
+  document.getElementById("netB").addEventListener("click", function(){ setNet(1); });
+  document.getElementById("netA").addEventListener("click", function(){ setNet(2); });
+  document.getElementById("netStart").addEventListener("click", function(){
+    setNet(1);
+    S.netMsg = "あなたは 黒 です。一手指して、出てきたコードを相手に送ってください。";
+    render(null);
+  });
+  document.getElementById("netShare").addEventListener("click", function(){
+    var t = S.lastCode;
+    if (!t) return;
+    var payload = "十三星の盤　あなたの番です\n" + location.href.split("#")[0] + "\nこのコードを「貼付」で取り込んでください\n" + t;
+    if (navigator.share){
+      navigator.share({text: payload}).then(function(){
+        S.netMsg = "送信アプリを開きました。"; render(null);
+      }, function(){ /* 取り消しは無視 */ });
+    } else {
+      S.netMsg = "この環境では共有を開けません。コピーを使ってください。"; render(null);
+    }
+  });
+  document.getElementById("netPaste").addEventListener("click", function(){
+    if (navigator.clipboard && navigator.clipboard.readText){
+      navigator.clipboard.readText().then(function(t){ applyCode(t); },
+        function(){ S.netMsg = "クリップボードを読めませんでした。手で貼り付けてください。"; render(null); });
+    } else {
+      document.getElementById("netInput").focus();
+      S.netMsg = "この環境では自動で読めません。手で貼り付けてください。"; render(null);
+    }
+  });
+  document.getElementById("netCopy").addEventListener("click", function(){
+    var t = S.lastCode;
+    if (!t) return;
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(t).then(function(){
+        S.netMsg = "コードをコピーしました。相手に送ってください。"; render(null);
+      }, function(){ S.netMsg = "コピーできませんでした。長押しで選択してください。"; render(null); });
+    } else { S.netMsg = "長押しでコードを選択してコピーしてください。"; render(null); }
+  });
+  document.getElementById("netApply").addEventListener("click", function(){
+    var f = document.getElementById("netInput");
+    applyCode(f.value); f.value = "";
+  });
+  document.getElementById("kingBtn").addEventListener("click", function(){
+    S.placeKing = !S.placeKing; render(null);
+  });
+
+  loadSettings();
+  applyRules();
+  buildBoard();
+  buildToggles();
+  setMode(RULES.mode);
+  ["cpuOff","cpu2","cpu1"].forEach(function(id,k){
+    document.getElementById(id).setAttribute("aria-pressed", String([0,2,1][k]===S.cpu));
+  });
+  document.getElementById("lv1").setAttribute("aria-pressed", String(S.level===1));
+  document.getElementById("lv2").setAttribute("aria-pressed", String(S.level===2));
+  render(null);
+  // ホーム画面に追加したときにオフラインでも動くようにする
+  try {
+    if ("serviceWorker" in navigator &&
+        (location.protocol === "https:" || location.hostname === "localhost")) {
+      navigator.serviceWorker.register("sw.js").catch(function(){});
+    }
+  } catch(e){}
+
+  /* ===== オンライン対戦（アーティファクトの自己再発行で同期） ===== */
+  var AUTO = null, AST = {codes:[], seats:{}, v:0}, ME = "";
+  (function(){
+    try { ME = localStorage.getItem("jusanboshi.me") || ""; } catch(e){}
+    if (!ME){
+      ME = Math.random().toString(36).slice(2) + Date.now().toString(36);
+      try { localStorage.setItem("jusanboshi.me", ME); } catch(e){}
+    }
+  })();
+
+  function autoRead(){
+    try {
+      var el = document.getElementById("jbstate");
+      var o = el ? JSON.parse(el.textContent || "{}") : {};
+      return {codes: o.codes || [], seats: o.seats || {}, rules: o.rules || null, v: o.v || 0};
+    } catch(e){ return {codes:[], seats:{}, rules:null, v:0}; }
+  }
+
+  // 役の設定は両者で同じでなければ手順の再生がずれる。状態に載せて共有する
+  function autoRules(){
+    var o = {mode: RULES.mode};
+    for (var k in PRESET) if (k !== "mode") o[k] = !!RULES[k];
+    return o;
+  }
+  function autoAdopt(r){
+    if (!r) return;
+    for (var k in PRESET) if (k !== "mode" && (k in r)) RULES[k] = !!r[k];
+    if (r.mode) RULES.mode = r.mode;
+    applyRules(); syncToggles(); setMode(RULES.mode);
+  }
+
+  // 席の決め方。自分の印がある席が自分の色。空いていれば黒、次に青、両方埋まっていれば観戦
+  function autoSeat(){
+    var s = AST.seats || {};
+    if (s["1"] === ME) return 1;
+    if (s["2"] === ME) return 2;
+    if (!s["1"]) return 1;
+    if (!s["2"]) return 2;
+    return 0;
+  }
+
+  function autoDoc(st){
+    var W = window.__JB || {};
+    return W.head
+      + '<script id="jbstate" type="application/json">'
+      + JSON.stringify(st).replace(/</g, "\\u003c")
+      + '<' + '/script>\n<script id="jbapp">' + W.self + '<' + '/script>'
+      + W.tail;
+  }
+
+  function autoPush(){
+    if (!S.auto || !AUTO || S.autoBusy || S.autoRO) return;
+    var s = AST.seats || {}, st = {codes: S.codes.slice(), seats: {},
+                                   rules: autoRules(), v: (AST.v || 0) + 1};
+    if (s["1"]) st.seats["1"] = s["1"];
+    if (s["2"]) st.seats["2"] = s["2"];
+    if (S.net === 1 || S.net === 2) st.seats[String(S.net)] = ME;
+    S.autoBusy = true; S.autoMsg = ""; render(null);
+    AUTO.publish(autoDoc(st)).then(function(){
+      // 成功すると、開いているすべての画面がこの版に切り替わります
+      S.autoMsg = "相手の画面にも届きました。";
+      render(null);
+    }, function(e){
+      S.autoBusy = false;
+      var c = String((e && (e.code || e.message)) || e || "");
+      if (/conflict/i.test(c)){
+        S.autoMsg = "相手が先に指していました。画面が最新に切り替わります。";
+      } else if (/not_writer|not_granted|permission|forbidden|readonly/i.test(c)){
+        S.autoRO = true;
+        S.autoMsg = "この画面には書き込みの権限がないので、手を自動で送れません。下に出たコードを相手に送ってください。相手が「反映」すると先に進みます。";
+      } else {
+        S.autoMsg = "送れませんでした（" + c + "）。もう一度指してみてください。";
+      }
+      render(null);
+    });
+  }
+
+  function autoLoad(){
+    var codes = (AST.codes || []).slice();
+    var seat = autoSeat();
+    autoAdopt(AST.rules);
+    reset();
+    S.auto = true; S.cpu = 0; S.srv = null; S.link = null;
+    S.net = seat; S.watch = (seat === 0);
+    S.codes = codes;
+    if (codes.length) linkReplay(codes);
+    render(null);
+  }
+
+  // この画面が claude.ai のアーティファクトなら、そこを卓として使えます
+  function artDetect(){
+    if (!(window.claude && typeof window.claude.use === "function")) return;
+    AST = autoRead();
+    window.claude.use("artifact").then(function(ns){
+      if (!ns) return;
+      AUTO = ns; S.artReady = true;
+      document.getElementById("gArtSec").style.display = "";
+      document.getElementById("gRoomSec").style.display = "none";
+      if (entryGet() === "artifact" && S.gate){ gateHide(); startArtifact(); }
+      render(null);
+    }, function(){});
+  }
+
+  function startArtifact(){
+    if (!AUTO) return gateShow("この画面ではまだ準備ができていません。少し待ってからもう一度押してください。");
+    roomClose();
+    AST = autoRead();
+    autoLoad();
+    S.auto = true; S.autoPending = false;
+    render(null);
+  }
+
+  // 役の設定を変えたら、両者の対局を新しい設定で始め直す
+  function autoPushRules(){
+    if (!S.auto || !AUTO || S.autoBusy) return;
+    var s = AST.seats || {}, st = {codes: [], seats: {}, rules: autoRules(), v: (AST.v || 0) + 1};
+    if (s["1"]) st.seats["1"] = s["1"];
+    if (s["2"]) st.seats["2"] = s["2"];
+    S.autoBusy = true; S.autoMsg = "設定を相手にも反映しています…"; render(null);
+    AUTO.publish(autoDoc(st)).then(function(){}, function(){
+      S.autoBusy = false; S.autoMsg = "設定を送れませんでした。"; render(null);
+    });
+  }
+
+  function autoReset(){
+    if (!AUTO) return;
+    S.autoBusy = true; S.autoMsg = "やり直しています…"; render(null);
+    AUTO.publish(autoDoc({codes: [], seats: {}, rules: autoRules(), v: (AST.v || 0) + 1})).then(function(){
+      S.autoMsg = "";
+    }, function(){
+      S.autoBusy = false; S.autoMsg = "やり直せませんでした。"; render(null);
+    });
+  }
+
+  /* ===================================================================
+     最初の画面（卓を選ぶ）と、合言葉でつながる通信
+     =================================================================== */
+
+  var ME = "";
+  (function(){
+    try { ME = localStorage.getItem("jusanboshi.me") || ""; } catch(e){}
+    if (!ME){
+      ME = Math.random().toString(36).slice(2) + Date.now().toString(36);
+      try { localStorage.setItem("jusanboshi.me", ME); } catch(e){}
+    }
+  })();
+
+  /* ---- 役の設定を相手と揃える ---- */
+  function rulesNow(){
+    var o = {mode: RULES.mode}, k;
+    for (k in PRESET) if (k !== "mode") o[k] = !!RULES[k];
+    return o;
+  }
+  function rulesAdopt(r){
+    if (!r) return;
+    for (var k in PRESET) if (k !== "mode" && (k in r)) RULES[k] = !!r[k];
+    if (r.mode) RULES.mode = r.mode;
+    applyRules(); syncToggles(); setMode(RULES.mode);
+  }
+
+  /* ---- 合言葉から卓の名前を作る。合言葉そのものは外に出さない ---- */
+  function topicOf(word){
+    var a = 5381, b = 52711, i;
+    for (i = 0; i < word.length; i++){
+      a = ((a * 33) ^ word.charCodeAt(i)) >>> 0;
+      b = ((b * 131) ^ word.charCodeAt(word.length - 1 - i)) >>> 0;
+    }
+    return "jusanboshi-" + ("0000000" + a.toString(36)).slice(-7)
+                         + ("0000000" + b.toString(36)).slice(-7);
+  }
+
+  /* ===== 中継（ntfy.sh。登録もアカウントも要りません） ===== */
+  var RELAY = (window.__RELAY__ || "https://ntfy.sh/");
+  var R = { word:"", topic:"", log:[], seen:{}, es:null, timer:null, seats:[] };
+
+  function roomParse(text){
+    try {
+      var o = JSON.parse(text);
+      return (o && o.v === 1 && o.t) ? o : null;
+    } catch(e){ return null; }
+  }
+
+  // 受け取った丸ごとの記録から、いまの局面を組み立て直す
+  function roomRebuild(){
+    var msgs = R.log, start = 0, i;
+    for (i = msgs.length - 1; i >= 0; i--) if (msgs[i].t === "new"){ start = i; break; }
+    var seq = msgs.slice(start);
+
+    var seats = [], codes = [], rules = null;
+    for (i = 0; i < seq.length; i++){
+      var m = seq[i];
+      if (m.t === "new" && m.rules) rules = m.rules;
+      if ((m.t === "join" || m.t === "move") && m.by && seats.indexOf(m.by) < 0 && seats.length < 2)
+        seats.push(m.by);
+      if (m.t === "move" && m.c && codes.indexOf(m.c) < 0) codes.push(m.c);
+    }
+    R.seats = seats;
+
+    var seat = seats.indexOf(ME);
+    var me = seat === 0 ? 1 : (seat === 1 ? 2 : 0);
+
+    rulesAdopt(rules);
+    reset();
+    S.room = true; S.cpu = 0; S.srv = null; S.link = null; S.auto = false;
+    S.net = me; S.watch = (me === 0 && seats.length >= 2);
+    S.codes = codes.slice();
+    if (codes.length && !linkReplay(codes))
+      S.roomMsg = "相手と手順が食い違いました。「新しい対局」を押してやり直してください。";
+    render(null);
+  }
+
+  var rebuildWait = null;
+  function roomTouch(){
+    if (rebuildWait) clearTimeout(rebuildWait);
+    rebuildWait = setTimeout(function(){ rebuildWait = null; roomRebuild(); }, 90);
+  }
+
+  function roomTake(text){
+    var m = roomParse(text);
+    if (!m) return;
+    // 同じものを二度積まない
+    var key = m.t + "|" + (m.by || "") + "|" + (m.c || "") + "|" + (m.n || "");
+    if (R.seen[key]) return;
+    R.seen[key] = 1;
+    R.log.push(m);
+    roomTouch();
+  }
+
+  function roomSend(msg){
+    msg.v = 1; msg.by = ME;
+    if (!msg.n) msg.n = Math.random().toString(36).slice(2, 8);
+    S.roomBusy = true; render(null);
+    return fetch(RELAY + R.topic, {method:"POST", body: JSON.stringify(msg)})
+      .then(function(res){
+        S.roomBusy = false;
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        S.roomErr = false; S.roomMsg = "";
+        // 席と仕切り直しの順番は中継が返す順で決める。手だけ先に映す
+        if (msg.t === "move") roomTake(JSON.stringify(msg));
+        render(null);
+      }, function(e){
+        S.roomBusy = false; S.roomErr = true;
+        S.roomMsg = "手を送れませんでした。下のコードを相手に渡してください。";
+        render(null);
+      });
+  }
+
+  function roomOpen(word){
+    roomClose();
+    R.word = word; R.topic = topicOf(word); R.log = []; R.seen = {}; R.seats = [];
+    S.room = true; S.roomErr = false; S.roomMsg = "つないでいます…"; S.cpu = 0;
+    try { localStorage.setItem("jusanboshi.word", word); } catch(e){}
+    render(null);
+
+    var url = RELAY + R.topic + "/sse?since=all";
+    var ok = false;
+    try {
+      R.es = new EventSource(url);
+      R.es.addEventListener("message", function(ev){
+        ok = true; S.roomMsg = "";
+        try {
+          var d = JSON.parse(ev.data);
+          if (d && d.event === "message" && d.message) roomTake(d.message);
+        } catch(e){}
+      });
+      R.es.addEventListener("open", function(){ ok = true; S.roomMsg = ""; render(null); });
+      R.es.addEventListener("error", function(){
+        if (!ok) roomPollFallback();
+      });
+    } catch(e){ roomPollFallback(); }
+
+    // つながらないときのために、少し待って様子を見る
+    setTimeout(function(){ if (!ok && S.room) roomPollFallback(); }, 4000);
+
+    roomSend({t:"join"});
+  }
+
+  function roomPollFallback(){
+    if (R.es){ try { R.es.close(); } catch(e){} R.es = null; }
+    if (R.timer) return;
+    var tick = function(){
+      if (!S.room){ R.timer = null; return; }
+      fetch(RELAY + R.topic + "/json?poll=1&since=all")
+        .then(function(r){ return r.text(); })
+        .then(function(t){
+          S.roomMsg = ""; S.roomErr = false;
+          t.split("\n").forEach(function(line){
+            if (!line) return;
+            try { var d = JSON.parse(line);
+                  if (d && d.event === "message" && d.message) roomTake(d.message); } catch(e){}
+          });
+          render(null);
+        }, function(){
+          S.roomErr = true;
+          S.roomMsg = "中継につながりません。下のコードを送り合う形でも遊べます。";
+          render(null);
+        });
+      R.timer = setTimeout(tick, 6000);
+    };
+    R.timer = setTimeout(tick, 200);
+    tick();
+  }
+
+  function roomClose(){
+    if (R.es){ try { R.es.close(); } catch(e){} R.es = null; }
+    if (R.timer){ clearTimeout(R.timer); R.timer = null; }
+    S.room = false; S.roomBusy = false;
+  }
+
+  function roomNew(){
+    if (!S.room) return;
+    R.log = []; R.seen = {};
+    roomSend({t:"new", rules: rulesNow()});
+  }
+
+  /* ===== 最初の画面 ===== */
+  function gateShow(msg){
+    S.gate = true;
+    roomClose();
+    document.getElementById("gate").style.display = "";
+    document.body.classList.add("gated");
+    var g = document.getElementById("gMsg");
+    g.textContent = msg || "";
+    g.style.display = msg ? "" : "none";
+    try {
+      var w = localStorage.getItem("jusanboshi.word") || "";
+      if (w && !document.getElementById("gWord").value)
+        document.getElementById("gWord").value = w;
+    } catch(e){}
+    render(null);
+  }
+  function gateHide(){
+    S.gate = false;
+    document.getElementById("gate").style.display = "none";
+    document.body.classList.remove("gated");
+  }
+
+  function startCpu(level){
+    gateHide();
+    roomClose();
+    S.net = 0; S.watch = false; S.auto = false; S.room = false;
+    S.cpu = level === 0 ? 0 : 2;      // 2 = 後手をCPUが持つ
+    S.level = level === 1 ? 1 : 2;    // 1 = やさしい / 2 = 強い
+    saveSettings();
+    ["cpuOff","cpu2","cpu1"].forEach(function(id,k){
+      document.getElementById(id).setAttribute("aria-pressed", String([0,2,1][k] === S.cpu));
+    });
+    document.getElementById("lv1").setAttribute("aria-pressed", String(S.level === 1));
+    document.getElementById("lv2").setAttribute("aria-pressed", String(S.level === 2));
+    reset();
+  }
+
+  function startRoom(){
+    var w = (document.getElementById("gWord").value || "").trim();
+    if (w.length < 2){
+      return gateShow("合言葉は2文字以上にしてください。相手と同じものを入れます。");
+    }
+    if (!(window.fetch && window.EventSource || window.fetch)){
+      return gateShow("この環境では通信対戦を使えません。ひとりで指す方をお選びください。");
+    }
+    gateHide();
+    roomOpen(w);
+  }
+
+  var WORDS_A = ["あお","あか","しろ","くろ","みどり","きん","ぎん","むらさき","そら","つき"];
+  var WORDS_B = ["さくら","つばめ","かもめ","うさぎ","きつね","たぬき","くじら","とんぼ","こま","ほし"];
+  function makeWord(){
+    var a = WORDS_A[Math.floor(Math.random()*WORDS_A.length)];
+    var b = WORDS_B[Math.floor(Math.random()*WORDS_B.length)];
+    return a + b + (10 + Math.floor(Math.random()*90));
+  }
+
+  /* ===== どの入口から入ったかを覚えておく ===== */
+  var EKEY = "jusanboshi.entry";
+  function entrySet(v){ try { localStorage.setItem(EKEY, v || ""); } catch(e){} }
+  function entryGet(){ try { return localStorage.getItem(EKEY) || ""; } catch(e){ return ""; } }
+
+  function bootEntry(){
+    artDetect();                       // 使える環境なら、あとから選択肢が増えます
+    var e = entryGet();
+    if (e === "room"){
+      var w = "";
+      try { w = localStorage.getItem("jusanboshi.word") || ""; } catch(x){}
+      if (w){
+        document.getElementById("gWord").value = w;
+        gateHide(); roomOpen(w); return;
+      }
+    }
+    if (e === "cpu1"){ gateHide(); startCpu(1); return; }
+    if (e === "cpu2"){ gateHide(); startCpu(2); return; }
+    if (e === "duo"){  gateHide(); startCpu(0); return; }
+    if (e === "artifact"){ gateShow(""); return; }   // artDetect が解決したら自動で入ります
+    gateShow("");
+  }
+
+  document.getElementById("autoShare").addEventListener("click", function(){
+    var url = location.href.split("#")[0];
+    var payload = "十三星の盤で対戦しませんか。このリンクを開くとすぐ始められます\n" + url;
+    if (navigator.share){
+      navigator.share({title:"十三星の盤", text:payload}).then(function(){}, function(){});
+    } else if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(url).then(function(){
+        S.autoMsg = "URLをコピーしました。相手に送ってください。"; render(null);
+      }, function(){ S.autoMsg = url; render(null); });
+    } else { S.autoMsg = url; render(null); }
+  });
+  document.getElementById("autoNew").addEventListener("click", autoReset);
+  document.getElementById("autoSolo").addEventListener("click", function(){
+    entrySet(""); gateShow("");
+  });
+
+  /* ---- 最初の画面のボタン ---- */
+  document.getElementById("gJoin").addEventListener("click", function(){
+    entrySet("room"); startRoom();
+  });
+  document.getElementById("gWord").addEventListener("keydown", function(ev){
+    if (ev.key === "Enter"){ ev.preventDefault(); entrySet("room"); startRoom(); }
+  });
+  document.getElementById("gMake").addEventListener("click", function(){
+    document.getElementById("gWord").value = makeWord();
+    document.getElementById("gWord").focus();
+  });
+  document.getElementById("gArt").addEventListener("click", function(){
+    entrySet("artifact"); gateHide(); startArtifact();
+  });
+  document.getElementById("gCpu1").addEventListener("click", function(){ entrySet("cpu1"); startCpu(1); });
+  document.getElementById("gCpu2").addEventListener("click", function(){ entrySet("cpu2"); startCpu(2); });
+  document.getElementById("gCpu0").addEventListener("click", function(){ entrySet("duo"); startCpu(0); });
+
+  /* ---- 合言葉カードのボタン ---- */
+  document.getElementById("homeBtn").addEventListener("click", function(){
+    entrySet(""); gateShow("");
+  });
+  document.getElementById("roomNew").addEventListener("click", roomNew);
+  document.getElementById("roomHome").addEventListener("click", function(){
+    entrySet(""); gateShow("");
+  });
+  document.getElementById("roomShare").addEventListener("click", function(){
+    var url = location.href.split("#")[0];
+    var payload = "十三星の盤で対戦しませんか。\nこのページを開いて、合言葉「" + R.word +
+                  "」を入れてください。\n" + url;
+    if (navigator.share){
+      navigator.share({title:"十三星の盤", text:payload}).then(function(){}, function(){});
+    } else if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(payload).then(function(){
+        S.roomMsg = "案内文をコピーしました。相手に送ってください。"; render(null);
+      }, function(){ S.roomMsg = payload; render(null); });
+    } else { S.roomMsg = payload; render(null); }
+  });
+
+  handleHash();
+  window.addEventListener("hashchange", handleHash);
+  try {
+    var qr = new URLSearchParams(location.search).get("room");
+    if (qr && (location.protocol === "http:" || location.protocol === "https:")){
+      document.getElementById("srvRoom").value = qr;
+      setTimeout(srvJoin, 80);
+    }
+  } catch(e){}
+  bootEntry();
+  if (!humanTurn()) setTimeout(cpuMove, 400);
+})();
+</script>
+</body>
+</html>
